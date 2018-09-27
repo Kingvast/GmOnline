@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic import View
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-from .models import CourseOrg, CityDict, Teacher
 from django.db.models import Q
+from django.http import HttpResponse
+from .models import CourseOrg, CityDict, Teacher
+from .forms import UserAskForm
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -64,3 +66,19 @@ class OrgView(View):
             'hot_orgs': hot_orgs,
             'sort': sort
         })
+
+
+class AddUserAskView(View):
+    """
+    我要学习中用户添加咨询
+    """
+
+    def post(self, request):
+        userask_form = UserAskForm(request.POST)
+        if userask_form.is_valid():
+            userask = userask_form.save(commit=True)
+            return HttpResponse('{"status":"success"}',
+                                content_type='application/json')
+        else:
+            return HttpResponse('{"status":"fail", "msg":"添加出错"}',
+                                content_type='application/json')
