@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
 from .views import OrgView, AddUserAskView, OrgHomeView, OrgCourseView, \
-    OrgDescView
+    OrgDescView, OrgTeacherView
 
 urlpatterns = [
     url(r'^list/$', OrgView.as_view(), name='org_list'),
@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^course/(?P<org_id>\d+)/$', OrgCourseView.as_view(),
         name='org_course'),
     url(r'^desc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='org_desc'),
+    url(r'^org_teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(),
+        name='org_teacher'),
 ]
