@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
 from .views import OrgView, AddUserAskView, OrgHomeView, OrgCourseView, \
-    OrgDescView, OrgTeacherView
+    OrgDescView, OrgTeacherView, AddFavView
 
 urlpatterns = [
     url(r'^list/$', OrgView.as_view(), name='org_list'),
@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^desc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='org_desc'),
     url(r'^org_teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(),
         name='org_teacher'),
+
+    url(r'^add_fav/$', AddFavView.as_view(), name='add_fav'),
 ]
