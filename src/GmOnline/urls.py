@@ -21,7 +21,7 @@ import xadmin
 from django.views.static import serve
 from users.views import IndexView, RegisterView, LoginView, ActiveUserView, \
     ForgetPwdView, ResetView, ModifyPwdView
-from GmOnline.settings import MEDIA_ROOT
+from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -35,8 +35,11 @@ urlpatterns = [
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
 
-    # 课程机构相关url配置
+    # 课程机构页面相关url配置
     url(r'^org/', include('organization.urls', namespace="org")),
+
+    # 课程页面相关url配置
+    url(r'^course/', include('courses.urls', namespace='course')),
 
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
