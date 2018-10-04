@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
-from organization.models import CourseOrg
+from organization.models import CourseOrg, Teacher
 
 
 # Create your models here.
@@ -36,18 +36,35 @@ class Course(models.Model):
         # 获取课程章节数
         return self.lesson_set.all().count()
 
-    get_zj_nums.short_description = "章节数"
+    get_zj_nums.short_description = '章节数'
+
+    def go_to(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='http://localhost:8000'>跳转</>")
+    go_to.short_description = '跳转'
 
     def get_learn_users(self):
         return self.usercourse_set.all()[:5]
+
+    def get_course_lesson(self):
+        # 获取课程所有章节
+        return self.lesson_set.all()
 
     def __unicode__(self):
         return self.name
 
 
+class BannerCourse(Course):
+    class Meta:
+        verbose_name = '轮播课程'
+        verbose_name_plural = verbose_name
+        proxy = True
+
+
 class Lesson(models.Model):
     course = models.ForeignKey(Course, verbose_name=u'课程')
     name = models.CharField(max_length=100, verbose_name=u'章节名')
+    learn_times = models.IntegerField(default=0, verbose_name=u'学习时长(分钟数)')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
@@ -56,6 +73,10 @@ class Lesson(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_lesson_video(self):
+        # 获取章节视频
+        return self.video_set.all()
 
 
 class Video(models.Model):
