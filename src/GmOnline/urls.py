@@ -19,10 +19,12 @@ from django.conf.urls import url, include
 
 import xadmin
 from django.views.static import serve
+from django.views.generic.base import RedirectView
 from users.views import IndexView, RegisterView, LoginView, ActiveUserView, \
     ForgetPwdView, ResetView, ModifyPwdView, LogoutView
 from .settings import MEDIA_ROOT
 
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url('^$', IndexView.as_view(), name='index'),
@@ -50,6 +52,8 @@ urlpatterns = [
 
     # 富文本相关url
     url(r'^ueditor/', include('DjangoUeditor.urls')),
+
+    url(r'^favicon\.ico$', favicon_view),
 ]
 
 # 全局404页面配置
