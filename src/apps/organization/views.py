@@ -66,7 +66,8 @@ class OrgView(View):
             'city_id': city_id,
             'category': category,
             'hot_orgs': hot_orgs,
-            'sort': sort
+            'sort': sort,
+            'search_keywords': search_keywords
         })
 
 
@@ -82,7 +83,7 @@ class AddUserAskView(View):
             return HttpResponse('{"status":"success"}',
                                 content_type='application/json')
         else:
-            return HttpResponse('{"status":"fail", "msg":"添加出错"}',
+            return HttpResponse('{"status":"fail", "msg":"您的字段有错误,请检查"}',
                                 content_type='application/json')
 
 
@@ -184,8 +185,8 @@ class AddFavView(View):
     """
 
     def post(self, request):
-        fav_id = request.POST.get('fav_id', '')
-        fav_type = request.POST.get('fav_type', '')
+        fav_id = request.POST.get('fav_id', 0)
+        fav_type = request.POST.get('fav_type', 0)
 
         if not request.user.is_authenticated():
             # 判断用户登录状态
@@ -267,7 +268,7 @@ class TeacherListView(View):
             if sort == "hot":
                 all_teachers = all_teachers.order_by('-click_nums')
 
-        sorted_teacher = Teacher.objects.all().order_by('-click_nums')[:3]
+        sorted_teacher = Teacher.objects.all().order_by('-fav_nums')[:3]
 
         teacher_nums = all_teachers.count()
 
@@ -284,7 +285,8 @@ class TeacherListView(View):
             'all_teachers': teachers,
             'sorted_teacher': sorted_teacher,
             'sort': sort,
-            'teacher_nums': teacher_nums
+            'teacher_nums': teacher_nums,
+            'search_keywords': search_keywords
         })
 
 
@@ -312,7 +314,7 @@ class TeacherDetailView(View):
                 has_org_faved = True
 
         # 讲师排行
-        sorted_teacher = Teacher.objects.all().order_by('-click_nums')[:3]
+        sorted_teacher = Teacher.objects.all().order_by('-fav_nums')[:3]
         return render(request, 'teacher-detail.html', {
             'teacher': teacher,
             'all_courses': all_courses,

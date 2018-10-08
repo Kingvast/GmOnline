@@ -5,7 +5,7 @@
     <section>
         <div class="wp">
             <ul  class="crumbs">
-                <li><a href="/">首页</a>></li>
+                <li><a href="{% url 'index' %}">首页</a>></li>
                 <li>课程讲师</li>
             </ul>
         </div>
@@ -33,11 +33,8 @@
                             </div>
                         </a>
 						<div class="btn">
-							<div class="fr btn2 bdsharebuttonbox"
-                                 data-text="授课教师-王浩-慕学在线"
-                                 data-desc="我在#积木在线学习网#发现了教师“王浩”，对学习中的小伙伴很有帮助，一起来看看吧。"
-                                 data-comment="王浩金牌讲师，从业年限：5年"
-                                 >
+							<div class="fr btn2 bdsharebuttonbox " data-tag="share_{{ teacher.id }}"
+                                 data="{'text':'授课教师-{{ teacher.name }}-积木在线学习网'}">
                                 <span class="fl">分享</span>
                                 <a href="#" class="bds_more" data-cmd="more"></a>
                             </div>
@@ -89,14 +86,14 @@
 		<div class="head">讲师排行榜</div>
             {% for hot_teacher in sorted_teacher %}
             <dl class="des">
-                <span class="num fl">1</span>
-                <a href="/diary/hk_detail/6/">
+                <span class="num fl">{{ forloop.counter }}</span>
+                <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
                     <dt>
                         <img width="50" height="50" class="scrollLoading"  src="{{ MEDIA_URL }}{{ hot_teacher.image }}"/>
                     </dt>
                 </a>
                 <dd>
-                    <a href="/diary/hk_detail/6/">
+                    <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
                         <h1 title="{{ hot_teacher.name }}">{{ hot_teacher.name }}</h1>
                     </a>
                     <p>工作年限：<span>{{ hot_teacher.work_years }}年</span></p>
@@ -107,5 +104,24 @@
 	</div>
     </div>
 </section>
+{% endblock %}
+{% block custom_js %}
+<script>
+    window._bd_share_config = {
+        "common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["mshare","qzone","tsina","weixin","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},
+        share : [
+            {% for teacher in all_teacher.object_list %}
+                   {
+			"tag" : "share_{{ teacher.id }}",
+			"bdSize" : 16,
+                       "bdText":"授课教师-{{ teacher.name }}-积木在线学习网",
+                       "bdDesc": "我在#积木在线学习网#发现了老师“{{ teacher.name }}”，对我们学习很有帮助，一起来看看吧",
+                        "bdUrl": 'http://localhost:8000{% url 'org:teacher_detail' teacher.id %}',
+		},{% endfor %}
+]
+    }
+	//以下为js加载部分
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 {% endblock %}
 

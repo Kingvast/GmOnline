@@ -12,18 +12,21 @@ class CityDictAdmin(object):
 
 
 class CourseOrgAdmin(object):
-    list_display = ['name', 'desc', 'click_nums', 'fav_nums']
-    search_fields = ['name', 'desc', 'click_nums', 'fav_nums']
-    list_filter = ['name', 'desc', 'click_nums', 'fav_nums']
+    list_display = ['name', 'desc', 'category', 'click_nums', 'fav_nums',
+                    'add_time']
+    search_fields = ['name', 'desc', 'category', 'click_nums', 'fav_nums']
+    list_filter = ['name', 'desc', 'category', 'click_nums', 'fav_nums',
+                   'city__name', 'address', 'add_time']
     relfield_style = 'fk-ajax'
     style_fields = {"desc": "ueditor"}
     model_icon = 'fa fa-university'
 
 
 class TeacherAdmin(object):
-    list_display = ['org', 'name', 'work_years', 'work_company']
+    list_display = ['name', 'org', 'work_years', 'work_company', 'add_time']
     search_fields = ['org', 'name', 'work_years', 'work_company']
-    list_filter = ['org', 'name', 'work_years', 'work_company']
+    list_filter = ['org__name', 'name', 'work_years', 'work_company',
+                   'click_nums', 'fav_nums', 'add_time']
     model_icon = 'fa fa-user-md'
 
 
