@@ -4,6 +4,7 @@
 <div class="right companycenter layout grouping" >
 		<div class="head">
 			<h1>全部课程</h1>
+            <a class="green fr more" href="{% url 'course:course_list' %}">查看更多  >  </a>
 		</div>
 		<div class="brief group_list">
             {% for course in all_courses %}
@@ -29,16 +30,25 @@
 <div class="right companycenter layout" >
     <div class="head">
         <h1>机构教师</h1>
+        <a class="green fr more" href="{% url 'org:teacher_list' %}">查看更多  >  </a>
     </div>
     {% for teacher in all_teachers %}
     <div class="diarys">
         <div class="module5 share company-diary-box" style="padding:10px 0;">
             <div class="left">
-                <img class="pic" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
-                <p><a href="{% url 'org:teacher_detail' teacher.id %}">讲师：{{ teacher.name }}</a></p>
+                <a href="{% url 'org:teacher_detail' teacher.id %}" ><img class="pic" src="{{ MEDIA_URL }}{{ teacher.image }}"/></a>
             </div>
-        </div>
-    </div>
+            <div class="right">
+                <div class="top">
+                   <div class="fl">
+                       <a href="{% url 'org:teacher_detail' teacher.id %}"><h1>{{ teacher.name }}</h1></a>
+                       <span>年龄:{{ teacher.age }}</span><br>
+                       <span>工作年限:{{ teacher.work_years }}</span><br>
+                       <span>入驻时间:{{ teacher.add_time }}</span><br>
+                       <span>授课特点:{{ teacher.points }}</span>
+                    </div>
+                </div>
+            </div>
     {% endfor %}
 
 
@@ -46,6 +56,7 @@
 <div class="right companycenter layout" >
     <div class="head">
         <h1>机构介绍</h1>
+        <a class="green fr more" href="{% url 'org:org_list' %}">查看更多  >  </a>
     </div>
     <div class="cont">&nbsp; &nbsp; {% autoescape off %}{{ course_org.desc }}{% endautoescape %}</div>
 </div>
