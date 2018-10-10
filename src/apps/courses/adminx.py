@@ -29,6 +29,7 @@ class CourseAdmin(object):
     readonly_fields = ['click_nums']
     list_editable = ['degree', 'desc']
     exclude = ['fav_nums']
+    model_icon = 'fa fa-book'
     # 课程直接添加章节
     inlines = [LessonInline, CourseResourceInline]
     # 富文本
@@ -82,6 +83,7 @@ class LessonAdmin(object):
     list_display = ['course', 'name', 'add_time']
     search_fields = ['course', 'name']
     list_filter = ['course__name', 'name', 'add_time']
+    model_icon = 'fa fa-th-list'
 
 
 class VideoAdmin(object):
@@ -95,6 +97,7 @@ class CourseResourceAdmin(object):
     list_display = ['course', 'name', 'download', 'add_time']
     search_fields = ['course', 'name', 'download']
     list_filter = ['course', 'name', 'download', 'add_time']
+    model_icon = 'fa fa-file-zip-o'
 
 
 xadmin.site.register(Course, CourseAdmin)

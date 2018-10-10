@@ -8,6 +8,9 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class UserProfile(AbstractUser):
+    """
+    个人信息
+    """
     nick_name = models.CharField(max_length=50, verbose_name=u'昵称', default='')
     birday = models.DateField(verbose_name=u'生日', null=True, blank=True)
     gender = models.CharField(
@@ -33,6 +36,9 @@ class UserProfile(AbstractUser):
 
 
 class EmailVerifyRecord(models.Model):
+    """
+    邮箱验证码
+    """
     code = models.CharField(max_length=20, verbose_name=u'验证码')
     email = models.EmailField(max_length=50, verbose_name=u'邮箱')
     send_type = models.CharField(
@@ -51,6 +57,9 @@ class EmailVerifyRecord(models.Model):
 
 
 class Banner(models.Model):
+    """
+    轮播图
+    """
     title = models.CharField(max_length=100, verbose_name=u'标题')
     image = models.ImageField(
         upload_to="banner/%Y/%m", verbose_name=u'轮播图', max_length=100)
@@ -61,3 +70,6 @@ class Banner(models.Model):
     class Meta:
         verbose_name = u'轮播图'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return '{0}(位于第{1}位)'.format(self.title, self.index)

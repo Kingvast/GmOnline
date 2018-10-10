@@ -16,7 +16,7 @@ class UserCourseAdmin(object):
     list_display = ['user', 'course', 'add_time']
     search_fields = ['user', 'course']
     list_filter = ['user', 'course', 'add_time']
-    model_icon = 'fa fa-address-book'
+    model_icon = 'fa fa-book'
 
 
 class UserMessageAdmin(object):
