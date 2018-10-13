@@ -26,7 +26,7 @@
                         {% if request.user.is_authenticated %}
                         <div class="personal">
                             <dl class="user fr">
-                                <dd>{{ user.username }}<img class="down fr" src="{% static "images/top_down.png" %}"/></dd>
+                                <dd>{{ user.nick_name }}<img class="down fr" src="{% static "images/top_down.png" %}"/></dd>
                                 <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
                             </dl>
                             <div class="userdetail">
@@ -122,7 +122,7 @@
 			</div>
 			<p class="line"></p>
 			<div class="wp clear">
-                <span class="fl">? 2018 www.nsu.edu.wanghao.gm.com 积木在线-在线学习交流平台 保留所有权利</span>
+                <span class="fl">©2018 www.nsu.edu.wanghao.gm.com 积木在线-在线学习交流平台 保留所有权利</span>
                 <span class="fr">copyright© 2018 ICP备案证书号：<a style="color: #717171;" href="http://localhost:8000/">蜀ICP备922734号-1</a></span>
 			</div>
 		</div>
