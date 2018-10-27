@@ -74,7 +74,7 @@ class CourseDetailView(View):
         has_fav_org = False
 
         # 必须是用户已登录我们才需要判断
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=course.id,
                                            fav_type=1):
                 has_fav_course = True
@@ -165,7 +165,7 @@ class AddCommentsView(View):
     """
 
     def post(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 判断用户登录状态
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}',
                                 content_type='application/json')

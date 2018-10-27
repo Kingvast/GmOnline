@@ -13,7 +13,8 @@ class Course(models.Model):
     课程信息表
     """
 
-    course_org = models.ForeignKey(CourseOrg, verbose_name=u'课程机构', null=True,
+    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE,
+                                   verbose_name=u'课程机构', null=True,
                                    blank=True)
     name = models.CharField(max_length=50, verbose_name=u'课程名')
     desc = models.CharField(max_length=300, verbose_name=u'课程描述')
@@ -21,7 +22,7 @@ class Course(models.Model):
                           imagePath='courses/ueditor/',
                           filePath='courses/ueditor/', default='')
     is_banner = models.BooleanField(default=False, verbose_name=u'是否轮播')
-    teacher = models.ForeignKey(Teacher, verbose_name=u'讲师', null=True,
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name=u'讲师', null=True,
                                 blank=True)
     degree = models.CharField(
         verbose_name=u'难度',
@@ -84,7 +85,7 @@ class Lesson(models.Model):
 
     # 因为一个课程对应很多章节。所以在章节表中将课程设置为外键
     # 作为一个字段来让我们可以知道这个章节对应那个课程
-    course = models.ForeignKey(Course, verbose_name=u'课程')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name=u'课程')
     name = models.CharField(max_length=100, verbose_name=u'章节名')
     learn_times = models.IntegerField(default=0, verbose_name=u'学习时长(分钟数)')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
@@ -108,7 +109,7 @@ class Video(models.Model):
 
     # 因为一个章节对应很多视频。所以在视频表中将章节设置为外键。
     # 作为一个字段来存储让我们可以知道这个视频对应哪个章节.
-    lesson = models.ForeignKey(Lesson, verbose_name=u'章节')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name=u'章节')
     name = models.CharField(max_length=100, verbose_name=u'视频名')
     learn_times = models.IntegerField(default=0, verbose_name=u'学习时长(分钟数)')
     url = models.CharField(max_length=200, default='', verbose_name=u'访问地址')
@@ -119,7 +120,7 @@ class Video(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return '{0}章节的视频 >> {1}'.format(self.lesson,self.name)
+        return '{0}章节的视频 >> {1}'.format(self.lesson, self.name)
 
 
 class CourseResource(models.Model):
@@ -129,7 +130,7 @@ class CourseResource(models.Model):
 
     # 因为一个课程对应很多资源。所以在课程资源表中将课程设置为外键。
     # 作为一个字段来让我们可以知道这个资源对应那个课程
-    course = models.ForeignKey(Course, verbose_name=u'课程')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name=u'课程')
     name = models.CharField(max_length=100, verbose_name=u'名称')
     download = models.FileField(
         upload_to='course/resource/%Y/%m',
@@ -142,4 +143,4 @@ class CourseResource(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return '《{0}》课程的资源: {1}'.format(self.course,self.name)
+        return '《{0}》课程的资源: {1}'.format(self.course, self.name)

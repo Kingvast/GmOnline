@@ -72,6 +72,7 @@ class BannerCourseAdmin(object):
     readonly_fields = ['click_nums']
     exclude = ['fav_nums']
     inlines = [LessonInline, CourseResourceInline]
+    model_icon = 'fa fa-tags'
 
     def queryset(self):
         qs = super(BannerCourseAdmin, self).queryset()

@@ -19,7 +19,7 @@ class CourseOrgAdmin(object):
                    'city__name', 'address', 'add_time']
     relfield_style = 'fk-ajax'
     style_fields = {"desc": "ueditor"}
-    model_icon = 'fa fa-university'
+    model_icon = 'fa fa-bank'
 
 
 class TeacherAdmin(object):

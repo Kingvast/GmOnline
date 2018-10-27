@@ -98,7 +98,7 @@ class OrgHomeView(View):
         course_org.click_nums += 1
         course_org.save()
         has_fav = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user,
                                            fav_id=course_org.id, fav_type=2):
                 has_fav = True
@@ -123,7 +123,7 @@ class OrgCourseView(View):
         current_page = 'course'
         course_org = CourseOrg.objects.get(id=int(org_id))
         has_fav = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user,
                                            fav_id=course_org.id, fav_type=2):
                 has_fav = True
@@ -145,7 +145,7 @@ class OrgDescView(View):
         current_page = 'desc'
         course_org = CourseOrg.objects.get(id=int(org_id))
         has_fav = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user,
                                            fav_id=course_org.id, fav_type=2):
                 has_fav = True
@@ -165,7 +165,7 @@ class OrgTeacherView(View):
         current_page = 'teacher'
         course_org = CourseOrg.objects.get(id=int(org_id))
         has_fav = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user,
                                            fav_id=course_org.id, fav_type=2):
                 has_fav = True
@@ -188,7 +188,7 @@ class AddFavView(View):
         fav_id = request.POST.get('fav_id', 0)
         fav_type = request.POST.get('fav_type', 0)
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 判断用户登录状态
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}',
                                 content_type='application/json')
@@ -302,13 +302,13 @@ class TeacherDetailView(View):
         all_courses = Course.objects.filter(teacher=teacher)
 
         has_teacher_faved = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_type=3,
                                            fav_id=teacher.id):
                 has_teacher_faved = True
 
         has_org_faved = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_type=2,
                                            fav_id=teacher.org.id):
                 has_org_faved = True
