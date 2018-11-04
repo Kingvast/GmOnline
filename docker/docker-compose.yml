@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  app:
+    build: ./..
+    container_name: GmOnline
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - gmonline_postgresql
+    volumes:
+      - ../src:/opt/app
+    command: [ "/bin/sh", "-c", "
+    python manage.py migrate --settings=game_mall.settings;
+    python manage.py runserver 0.0.0.0:8000 --settings=game_mall.settings"]
+
+  # 数据库
+  gmonline_postgresql:
+    image: postgres
+    restart: always
+    environment:
+        POSTGRES_DB: gmonline
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: wh@wh.com
