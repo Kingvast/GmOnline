@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - gmonline_postgresql
+      - gmonline_mysql
     volumes:
       - ../src:/opt/app
     command: [ "/bin/sh", "-c", "
@@ -16,10 +16,10 @@ services:
     python manage.py runserver 0.0.0.0:8000 --settings=game_mall.settings"]
 
   # 数据库
-  gmonline_postgresql:
-    image: postgres
+  gmonline_mysql:
+    image: mysql
     restart: always
     environment:
-        POSTGRES_DB: gmonline
-        POSTGRES_USER: root
-        POSTGRES_PASSWORD: wh@wh.com
+        MYSQL_DB: gmonline
+        MYSQL_USER: root
+        MYSQL_PASSWORD: wh@wh.com
