@@ -35,6 +35,11 @@ try:
 except ImportError:
     from django.utils.timezone import localtime as tz_localtime
 
+if django.VERSION < (1, 11):
+    DJANGO_11 = False
+else:
+    DJANGO_11 = True
+
 
 def xstatic(*tags):
     from .vendors import vendors
@@ -99,8 +104,8 @@ def lookup_needs_distinct(opts, lookup_path):
     field = opts.get_field(field_name)
     if ((hasattr(field, 'rel') and
          isinstance(field.rel, models.ManyToManyRel)) or
-        (is_related_field(field) and
-         not field.field.unique)):
+            (is_related_field(field) and
+             not field.field.unique)):
         return True
     return False
 
@@ -193,7 +198,9 @@ class NestedObjects(Collector):
             else:
                 self.add_edge(None, obj)
         try:
-            return super(NestedObjects, self).collect(objs, source_attr=source_attr, **kwargs)
+            return super(NestedObjects, self).collect(objs,
+                                                      source_attr=source_attr,
+                                                      **kwargs)
         except models.ProtectedError as e:
             self.protected.update(e.protected_objects)
 
@@ -317,7 +324,9 @@ def admin_urlname(value, arg):
 
 def boolean_icon(field_val):
     return mark_safe(u'<i class="%s" alt="%s"></i>' % (
-        {True: 'fa fa-check-circle text-success', False: 'fa fa-times-circle text-error', None: 'fa fa-question-circle muted'}[field_val], field_val))
+        {True: 'fa fa-check-circle text-success',
+         False: 'fa fa-times-circle text-error',
+         None: 'fa fa-question-circle muted'}[field_val], field_val))
 
 
 def display_for_field(value, field):
@@ -327,7 +336,8 @@ def display_for_field(value, field):
         return dict(field.flatchoices).get(value, EMPTY_CHANGELIST_VALUE)
     # NullBooleanField needs special-case null-handling, so it comes
     # before the general null test.
-    elif isinstance(field, models.BooleanField) or isinstance(field, models.NullBooleanField):
+    elif isinstance(field, models.BooleanField) or isinstance(field,
+                                                              models.NullBooleanField):
         return boolean_icon(value)
     elif value is None:
         return EMPTY_CHANGELIST_VALUE
@@ -447,8 +457,8 @@ def get_limit_choices_to_from_path(model, path):
     fields = get_fields_from_path(model, path)
     fields = remove_trailing_data_field(fields)
     limit_choices_to = (
-        fields and hasattr(fields[-1], 'rel') and
-        getattr(fields[-1].rel, 'limit_choices_to', None))
+            fields and hasattr(fields[-1], 'rel') and
+            getattr(fields[-1].rel, 'limit_choices_to', None))
     if not limit_choices_to:
         return models.Q()  # empty Q
     elif isinstance(limit_choices_to, models.Q):
@@ -470,6 +480,7 @@ def sortkeypicker(keynames):
             if k in negate:
                 composite[i] = -v
         return composite
+
     return getit
 
 
@@ -478,4 +489,6 @@ def is_related_field(field):
 
 
 def is_related_field2(field):
-    return (hasattr(field, 'remote_field') and field.remote_field != None) or is_related_field(field)
+    return (hasattr(field,
+                    'remote_field') and field.remote_field != None) or is_related_field(
+        field)
