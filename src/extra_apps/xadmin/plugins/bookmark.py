@@ -1,4 +1,3 @@
-
 from django.contrib.contenttypes.models import ContentType
 from django.urls.base import reverse
 from django.db import transaction
@@ -43,30 +42,24 @@ class BookmarkPlugin(BaseAdminPlugin):
         bookmarks = []
 
         current_qs = '&'.join([
-            '%s=%s' % (k, v)
-            for k, v in sorted(filter(
-                lambda i: bool(i[1] and (
-                    i[0] in (COL_LIST_VAR, ORDER_VAR, SEARCH_VAR)
-                    or i[0].startswith(FILTER_PREFIX)
-                    or i[0].startswith(RELATE_PREFIX)
-                )),
-                self.request.GET.items()
-            ))
+            '%s=%s' % (k, v) for k, v in sorted(
+                filter(
+                    lambda i: bool(i[1] and (i[0] in (COL_LIST_VAR, ORDER_VAR, SEARCH_VAR) or i[0].startswith(FILTER_PREFIX) or i[0].startswith(RELATE_PREFIX))),
+                    self.request.GET.items()))
         ])
 
         model_info = (self.opts.app_label, self.opts.model_name)
         has_selected = False
         menu_title = _(u"Bookmark")
-        list_base_url = reverse('xadmin:%s_%s_changelist' %
-                                model_info, current_app=self.admin_site.name)
+        list_base_url = reverse(
+            'xadmin:%s_%s_changelist' % model_info,
+            current_app=self.admin_site.name)
 
         # local bookmarks
         for bk in self.list_bookmarks:
             title = bk['title']
-            params = dict([
-                (FILTER_PREFIX + k, v)
-                for (k, v) in bk['query'].items()
-            ])
+            params = dict(
+                [(FILTER_PREFIX + k, v) for (k, v) in bk['query'].items()])
             if 'order' in bk:
                 params[ORDER_VAR] = '.'.join(bk['order'])
             if 'cols' in bk:
@@ -76,16 +69,20 @@ class BookmarkPlugin(BaseAdminPlugin):
 
             def check_item(i):
                 return bool(i[1]) or i[1] == False
+
             bk_qs = '&'.join([
-                    '%s=%s' % (k, v)
-                    for k, v in sorted(filter(check_item, params.items()))
+                '%s=%s' % (k, v)
+                for k, v in sorted(filter(check_item, params.items()))
             ])
 
             url = list_base_url + '?' + bk_qs
             selected = (current_qs == bk_qs)
 
-            bookmarks.append(
-                {'title': title, 'selected': selected, 'url': url})
+            bookmarks.append({
+                'title': title,
+                'selected': selected,
+                'url': url
+            })
             if selected:
                 menu_title = title
                 has_selected = True
@@ -94,8 +91,8 @@ class BookmarkPlugin(BaseAdminPlugin):
         bk_model_info = (Bookmark._meta.app_label, Bookmark._meta.model_name)
         bookmarks_queryset = Bookmark.objects.filter(
             content_type=content_type,
-            url_name='xadmin:%s_%s_changelist' % model_info
-        ).filter(Q(user=self.user) | Q(is_share=True))
+            url_name='xadmin:%s_%s_changelist' %
+            model_info).filter(Q(user=self.user) | Q(is_share=True))
 
         for bk in bookmarks_queryset:
             selected = (current_qs == bk.query)
@@ -105,25 +102,44 @@ class BookmarkPlugin(BaseAdminPlugin):
             else:
                 change_or_detail = 'detail'
 
-            bookmarks.append({'title': bk.title, 'selected': selected, 'url': bk.url, 'edit_url':
-                              reverse('xadmin:%s_%s_%s' % (bk_model_info[0], bk_model_info[1], change_or_detail),
-                                      args=(bk.id,))})
+            bookmarks.append({
+                'title':
+                bk.title,
+                'selected':
+                selected,
+                'url':
+                bk.url,
+                'edit_url':
+                reverse(
+                    'xadmin:%s_%s_%s' % (bk_model_info[0], bk_model_info[1],
+                                         change_or_detail),
+                    args=(bk.id, ))
+            })
             if selected:
                 menu_title = bk.title
                 has_selected = True
 
-        post_url = reverse('xadmin:%s_%s_bookmark' % model_info,
-                           current_app=self.admin_site.name)
+        post_url = reverse(
+            'xadmin:%s_%s_bookmark' % model_info,
+            current_app=self.admin_site.name)
 
         new_context = {
-            'bk_menu_title': menu_title,
-            'bk_bookmarks': bookmarks,
-            'bk_current_qs': current_qs,
-            'bk_has_selected': has_selected,
-            'bk_list_base_url': list_base_url,
-            'bk_post_url': post_url,
-            'has_add_permission_bookmark': self.admin_view.request.user.has_perm('xadmin.add_bookmark'),
-            'has_change_permission_bookmark': self.admin_view.request.user.has_perm('xadmin.change_bookmark')
+            'bk_menu_title':
+            menu_title,
+            'bk_bookmarks':
+            bookmarks,
+            'bk_current_qs':
+            current_qs,
+            'bk_has_selected':
+            has_selected,
+            'bk_list_base_url':
+            list_base_url,
+            'bk_post_url':
+            post_url,
+            'has_add_permission_bookmark':
+            self.admin_view.request.user.has_perm('xadmin.add_bookmark'),
+            'has_change_permission_bookmark':
+            self.admin_view.request.user.has_perm('xadmin.change_bookmark')
         }
         context.update(new_context)
         return context
@@ -135,12 +151,14 @@ class BookmarkPlugin(BaseAdminPlugin):
     # Block Views
     def block_nav_menu(self, context, nodes):
         if self.show_bookmarks:
-            nodes.insert(0, loader.render_to_string('xadmin/blocks/model_list.nav_menu.bookmarks.html',
-                                                    context=get_context_dict(context)))
+            nodes.insert(
+                0,
+                loader.render_to_string(
+                    'xadmin/blocks/model_list.nav_menu.bookmarks.html',
+                    context=get_context_dict(context)))
 
 
 class BookmarkView(ModelAdminView):
-
     @csrf_protect_m
     @transaction.atomic
     def post(self, request):
@@ -148,9 +166,11 @@ class BookmarkView(ModelAdminView):
         url_name = 'xadmin:%s_%s_changelist' % model_info
         bookmark = Bookmark(
             content_type=ContentType.objects.get_for_model(self.model),
-            title=request.POST[
-                'title'], user=self.user, query=request.POST.get('query', ''),
-            is_share=request.POST.get('is_share', 0), url_name=url_name)
+            title=request.POST['title'],
+            user=self.user,
+            query=request.POST.get('query', ''),
+            is_share=request.POST.get('is_share', 0),
+            url_name=url_name)
         bookmark.save()
         content = {'title': bookmark.title, 'url': bookmark.url}
         return self.render_response(content)
@@ -160,7 +180,7 @@ class BookmarkAdmin(object):
 
     model_icon = 'fa fa-book'
     list_display = ('title', 'user', 'url_name', 'query')
-    list_display_links = ('title',)
+    list_display_links = ('title', )
     user_fields = ['user']
     hidden_menu = True
 
@@ -219,17 +239,17 @@ class BookmarkWidget(PartialBaseWidget):
         if len(base_fields) > 5:
             base_fields = base_fields[0:5]
 
-        context['result_headers'] = [c for c in list_view.result_headers(
-        ).cells if c.field_name in base_fields]
-        context['results'] = [
-            [o for i, o in enumerate(filter(
-                lambda c: c.field_name in base_fields,
-                r.cells
-            ))]
-            for r in list_view.results()
+        context['result_headers'] = [
+            c for c in list_view.result_headers().cells
+            if c.field_name in base_fields
         ]
+        context['results'] = [[
+            o for i, o in enumerate(
+                filter(lambda c: c.field_name in base_fields, r.cells))
+        ] for r in list_view.results()]
         context['result_count'] = list_view.result_count
         context['page_url'] = self.bookmark.url
+
 
 site.register(Bookmark, BookmarkAdmin)
 site.register_plugin(BookmarkPlugin, ListAdminView)

@@ -79,13 +79,17 @@ class ImportMenuPlugin(BaseAdminPlugin):
         has_add_perm = self.has_model_perm(self.model, 'add')
         if has_change_perm and has_add_perm:
             model_info = (self.opts.app_label, self.opts.model_name)
-            import_url = reverse('xadmin:%s_%s_import' % model_info, current_app=self.admin_site.name)
+            import_url = reverse(
+                'xadmin:%s_%s_import' % model_info,
+                current_app=self.admin_site.name)
             context = get_context_dict(context or {})  # no error!
             context.update({
                 'import_url': import_url,
             })
-            nodes.append(loader.render_to_string('xadmin/blocks/model_list.top_toolbar.importexport.import.html',
-                                                 context=context))
+            nodes.append(
+                loader.render_to_string(
+                    'xadmin/blocks/model_list.top_toolbar.importexport.import.html',
+                    context=context))
 
 
 class ImportBaseView(ModelAdminView):
@@ -124,11 +128,15 @@ class ImportBaseView(ModelAdminView):
 
     def get_resource_class(self, usage):
         if usage == 'import':
-            return self.import_export_args.get('import_resource_class') if self.import_export_args.get(
-                'import_resource_class') else modelresource_factory(self.model)
+            return self.import_export_args.get(
+                'import_resource_class') if self.import_export_args.get(
+                    'import_resource_class') else modelresource_factory(
+                        self.model)
         elif usage == 'export':
-            return self.import_export_args.get('export_resource_class') if self.import_export_args.get(
-                'export_resource_class') else modelresource_factory(self.model)
+            return self.import_export_args.get(
+                'export_resource_class') if self.import_export_args.get(
+                    'export_resource_class') else modelresource_factory(
+                        self.model)
         else:
             return modelresource_factory(self.model)
 
@@ -136,7 +144,8 @@ class ImportBaseView(ModelAdminView):
         """
         Returns ResourceClass to use for import.
         """
-        return self.process_import_resource(self.get_resource_class(usage='import'))
+        return self.process_import_resource(
+            self.get_resource_class(usage='import'))
 
     def process_import_resource(self, resource):
         """
@@ -153,7 +162,6 @@ class ImportBaseView(ModelAdminView):
 
 
 class ImportView(ImportBaseView):
-
     def get_media(self):
         media = super(ImportView, self).get_media()
         media = media + self.vendor('xadmin.plugin.importexport.css')
@@ -164,23 +172,24 @@ class ImportView(ImportBaseView):
         if not (self.has_change_permission() and self.has_add_permission()):
             raise PermissionDenied
 
-        resource = self.get_import_resource_class()(**self.get_import_resource_kwargs(request, *args, **kwargs))
+        resource = self.get_import_resource_class()(
+            **self.get_import_resource_kwargs(request, *args, **kwargs))
 
         context = super(ImportView, self).get_context()
 
         import_formats = self.get_import_formats()
-        form = ImportForm(import_formats,
-                          request.POST or None,
-                          request.FILES or None)
+        form = ImportForm(import_formats, request.POST or None, request.FILES
+                          or None)
 
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
+        context['fields'] = [
+            f.column_name for f in resource.get_user_visible_fields()
+        ]
 
         request.current_app = self.admin_site.name
-        return TemplateResponse(request, [self.import_template_name],
-                                context)
+        return TemplateResponse(request, [self.import_template_name], context)
 
     @filter_hook
     @csrf_protect_m
@@ -195,19 +204,18 @@ class ImportView(ImportBaseView):
         if not (self.has_change_permission() and self.has_add_permission()):
             raise PermissionDenied
 
-        resource = self.get_import_resource_class()(**self.get_import_resource_kwargs(request, *args, **kwargs))
+        resource = self.get_import_resource_class()(
+            **self.get_import_resource_kwargs(request, *args, **kwargs))
 
         context = super(ImportView, self).get_context()
 
         import_formats = self.get_import_formats()
-        form = ImportForm(import_formats,
-                          request.POST or None,
-                          request.FILES or None)
+        form = ImportForm(import_formats, request.POST or None, request.FILES
+                          or None)
 
         if request.POST and form.is_valid():
-            input_format = import_formats[
-                int(form.cleaned_data['input_format'])
-            ]()
+            input_format = import_formats[int(
+                form.cleaned_data['input_format'])]()
             import_file = form.cleaned_data['import_file']
             # first always write the uploaded file to disk as it may be a
             # memory file or else based on settings upload handlers
@@ -226,36 +234,41 @@ class ImportView(ImportBaseView):
                     data = force_text(data, self.from_encoding)
                 dataset = input_format.create_dataset(data)
             except UnicodeDecodeError as e:
-                return HttpResponse(_(u"<h1>Imported file has a wrong encoding: %s</h1>" % e))
+                return HttpResponse(
+                    _(u"<h1>Imported file has a wrong encoding: %s</h1>" % e))
             except Exception as e:
-                return HttpResponse(_(u"<h1>%s encountered while trying to read file: %s</h1>" % (type(e).__name__,
-                                                                                                  import_file.name)))
-            result = resource.import_data(dataset, dry_run=True,
-                                          raise_errors=False,
-                                          file_name=import_file.name,
-                                          user=request.user)
+                return HttpResponse(
+                    _(u"<h1>%s encountered while trying to read file: %s</h1>"
+                      % (type(e).__name__, import_file.name)))
+            result = resource.import_data(
+                dataset,
+                dry_run=True,
+                raise_errors=False,
+                file_name=import_file.name,
+                user=request.user)
 
             context['result'] = result
 
             if not result.has_errors():
-                context['confirm_form'] = ConfirmImportForm(initial={
-                    'import_file_name': tmp_storage.name,
-                    'original_file_name': import_file.name,
-                    'input_format': form.cleaned_data['input_format'],
-                })
+                context['confirm_form'] = ConfirmImportForm(
+                    initial={
+                        'import_file_name': tmp_storage.name,
+                        'original_file_name': import_file.name,
+                        'input_format': form.cleaned_data['input_format'],
+                    })
 
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
+        context['fields'] = [
+            f.column_name for f in resource.get_user_visible_fields()
+        ]
 
         request.current_app = self.admin_site.name
-        return TemplateResponse(request, [self.import_template_name],
-                                context)
+        return TemplateResponse(request, [self.import_template_name], context)
 
 
 class ImportProcessView(ImportBaseView):
-
     @filter_hook
     @csrf_protect_m
     @transaction.atomic
@@ -264,24 +277,27 @@ class ImportProcessView(ImportBaseView):
         Perform the actual import action (after the user has confirmed he
         wishes to import)
         """
-        resource = self.get_import_resource_class()(**self.get_import_resource_kwargs(request, *args, **kwargs))
+        resource = self.get_import_resource_class()(
+            **self.get_import_resource_kwargs(request, *args, **kwargs))
 
         confirm_form = ConfirmImportForm(request.POST)
         if confirm_form.is_valid():
             import_formats = self.get_import_formats()
-            input_format = import_formats[
-                int(confirm_form.cleaned_data['input_format'])
-            ]()
-            tmp_storage = self.get_tmp_storage_class()(name=confirm_form.cleaned_data['import_file_name'])
+            input_format = import_formats[int(
+                confirm_form.cleaned_data['input_format'])]()
+            tmp_storage = self.get_tmp_storage_class()(
+                name=confirm_form.cleaned_data['import_file_name'])
             data = tmp_storage.read(input_format.get_read_mode())
             if not input_format.is_binary() and self.from_encoding:
                 data = force_text(data, self.from_encoding)
             dataset = input_format.create_dataset(data)
 
-            result = resource.import_data(dataset, dry_run=False,
-                                          raise_errors=True,
-                                          file_name=confirm_form.cleaned_data['original_file_name'],
-                                          user=request.user)
+            result = resource.import_data(
+                dataset,
+                dry_run=False,
+                raise_errors=True,
+                file_name=confirm_form.cleaned_data['original_file_name'],
+                user=request.user)
 
             if not self.get_skip_admin_log():
                 # Add imported objects to LogEntry
@@ -290,7 +306,8 @@ class ImportProcessView(ImportBaseView):
                     RowResult.IMPORT_TYPE_UPDATE: CHANGE,
                     RowResult.IMPORT_TYPE_DELETE: DELETION,
                 }
-                content_type_id = ContentType.objects.get_for_model(self.model).pk
+                content_type_id = ContentType.objects.get_for_model(
+                    self.model).pk
                 for row in result:
                     if row.import_type != row.IMPORT_TYPE_ERROR and row.import_type != row.IMPORT_TYPE_SKIP:
                         LogEntry.objects.log_action(
@@ -299,19 +316,23 @@ class ImportProcessView(ImportBaseView):
                             object_id=row.object_id,
                             object_repr=row.object_repr,
                             action_flag=logentry_map[row.import_type],
-                            change_message="%s through import_export" % row.import_type,
+                            change_message="%s through import_export" %
+                            row.import_type,
                         )
-            success_message = str(_(u'Import finished')) + ' , ' + str(_(u'Add')) + ' : %d' % result.totals[
-                RowResult.IMPORT_TYPE_NEW] + ' , ' + str(_(u'Update')) + ' : %d' % result.totals[
-                RowResult.IMPORT_TYPE_UPDATE]
+            success_message = str(_(u'Import finished')) + ' , ' + str(
+                _(u'Add')) + ' : %d' % result.totals[
+                    RowResult.IMPORT_TYPE_NEW] + ' , ' + str(
+                        _(u'Update')
+                    ) + ' : %d' % result.totals[RowResult.IMPORT_TYPE_UPDATE]
 
             messages.success(request, success_message)
             tmp_storage.remove()
 
             post_import.send(sender=None, model=self.model)
             model_info = (self.opts.app_label, self.opts.model_name)
-            url = reverse('xadmin:%s_%s_changelist' % model_info,
-                          current_app=self.admin_site.name)
+            url = reverse(
+                'xadmin:%s_%s_changelist' % model_info,
+                current_app=self.admin_site.name)
             return HttpResponseRedirect(url)
 
 
@@ -337,11 +358,15 @@ class ExportMixin(object):
 
     def get_resource_class(self, usage):
         if usage == 'import':
-            return self.import_export_args.get('import_resource_class') if self.import_export_args.get(
-                'import_resource_class') else modelresource_factory(self.model)
+            return self.import_export_args.get(
+                'import_resource_class') if self.import_export_args.get(
+                    'import_resource_class') else modelresource_factory(
+                        self.model)
         elif usage == 'export':
-            return self.import_export_args.get('export_resource_class') if self.import_export_args.get(
-                'export_resource_class') else modelresource_factory(self.model)
+            return self.import_export_args.get(
+                'export_resource_class') if self.import_export_args.get(
+                    'export_resource_class') else modelresource_factory(
+                        self.model)
         else:
             return modelresource_factory(self.model)
 
@@ -360,8 +385,7 @@ class ExportMixin(object):
     def get_export_filename(self, file_format):
         date_str = datetime.now().strftime('%Y-%m-%d-%H%M%S')
         filename = "%s-%s.%s" % (self.opts.verbose_name.encode('utf-8'),
-                                 date_str,
-                                 file_format.get_extension())
+                                 date_str, file_format.get_extension())
         return filename
 
     def get_export_queryset(self, request, context):
@@ -381,7 +405,8 @@ class ExportMixin(object):
         elif scope == 'selected':
             if not select_across:
                 selected_pk = selected.split(',')
-                queryset = self.admin_view.queryset().filter(pk__in=selected_pk)
+                queryset = self.admin_view.queryset().filter(
+                    pk__in=selected_pk)
             else:
                 queryset = self.admin_view.queryset()
         else:
@@ -394,7 +419,9 @@ class ExportMixin(object):
         """
         request = kwargs.pop("request")
         resource_class = self.get_export_resource_class()
-        data = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
+        data = resource_class(
+            **self.get_export_resource_kwargs(request)).export(
+                queryset, *args, **kwargs)
         export_data = file_format.export_data(data)
         return export_data
 
@@ -404,7 +431,8 @@ class ExportMenuPlugin(ExportMixin, BaseAdminPlugin):
 
     # Media
     def get_media(self, media):
-        return media + self.vendor('xadmin.plugin.importexport.css', 'xadmin.plugin.importexport.js')
+        return media + self.vendor('xadmin.plugin.importexport.css',
+                                   'xadmin.plugin.importexport.js')
 
     def init_request(self, *args, **kwargs):
         return bool(self.import_export_args.get('export_resource_class'))
@@ -415,16 +443,22 @@ class ExportMenuPlugin(ExportMixin, BaseAdminPlugin):
 
         context = get_context_dict(context or {})  # no error!
         context.update({
-            'form': form,
-            'opts': self.opts,
-            'form_params': self.admin_view.get_form_params({'_action_': 'export'}),
+            'form':
+            form,
+            'opts':
+            self.opts,
+            'form_params':
+            self.admin_view.get_form_params({
+                '_action_': 'export'
+            }),
         })
-        nodes.append(loader.render_to_string('xadmin/blocks/model_list.top_toolbar.importexport.export.html',
-                                             context=context))
+        nodes.append(
+            loader.render_to_string(
+                'xadmin/blocks/model_list.top_toolbar.importexport.export.html',
+                context=context))
 
 
 class ExportPlugin(ExportMixin, BaseAdminPlugin):
-
     def init_request(self, *args, **kwargs):
         return self.request.GET.get('_action_') == 'export'
 
@@ -436,12 +470,14 @@ class ExportPlugin(ExportMixin, BaseAdminPlugin):
         export_format = self.request.GET.get('file_format')
 
         if not export_format:
-            messages.warning(self.request, _('You must select an export format.'))
+            messages.warning(self.request,
+                             _('You must select an export format.'))
         else:
             formats = self.get_export_formats()
             file_format = formats[int(export_format)]()
             queryset = self.get_export_queryset(self.request, context)
-            export_data = self.get_export_data(file_format, queryset, request=self.request)
+            export_data = self.get_export_data(
+                file_format, queryset, request=self.request)
             content_type = file_format.get_content_type()
             # Django 1.7 uses the content_type kwarg instead of mimetype
             try:
@@ -449,14 +485,14 @@ class ExportPlugin(ExportMixin, BaseAdminPlugin):
             except TypeError:
                 response = HttpResponse(export_data, mimetype=content_type)
             response['Content-Disposition'] = 'attachment; filename=%s' % (
-                self.get_export_filename(file_format),
-            )
+                self.get_export_filename(file_format), )
             post_export.send(sender=None, model=self.model)
             return response
 
 
 site.register_modelview(r'^import/$', ImportView, name='%s_%s_import')
-site.register_modelview(r'^process_import/$', ImportProcessView, name='%s_%s_process_import')
+site.register_modelview(
+    r'^process_import/$', ImportProcessView, name='%s_%s_process_import')
 site.register_plugin(ImportMenuPlugin, ListAdminView)
 site.register_plugin(ExportMenuPlugin, ListAdminView)
 site.register_plugin(ExportPlugin, ListAdminView)

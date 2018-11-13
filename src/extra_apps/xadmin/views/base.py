@@ -48,6 +48,7 @@ def filter_chain(filters, token, func, *args, **kwargs):
     if token == -1:
         return func()
     else:
+
         def _inner_method():
             fm = filters[token]
             fargs = getargspec(fm)[0]
@@ -57,9 +58,13 @@ def filter_chain(filters, token, func, *args, **kwargs):
                 if result is None:
                     return fm()
                 else:
-                    raise IncorrectPluginArg(u'Plugin filter method need a arg to receive parent method result.')
+                    raise IncorrectPluginArg(
+                        u'Plugin filter method need a arg to receive parent method result.'
+                    )
             else:
-                return fm(func if fargs[1] == '__' else func(), *args, **kwargs)
+                return fm(func if fargs[1] == '__' else func(), *args,
+                          **kwargs)
+
         return filter_chain(filters, token - 1, _inner_method, *args, **kwargs)
 
 
@@ -69,17 +74,20 @@ def filter_hook(func):
 
     @functools.wraps(func)
     def method(self, *args, **kwargs):
-
         def _inner_method():
             return func(self, *args, **kwargs)
 
         if self.plugins:
-            filters = [(getattr(getattr(p, tag), 'priority', 10), getattr(p, tag))
-                       for p in self.plugins if callable(getattr(p, tag, None))]
-            filters = [f for p, f in sorted(filters, key=lambda x:x[0])]
-            return filter_chain(filters, len(filters) - 1, _inner_method, *args, **kwargs)
+            filters = [(getattr(getattr(p, tag), 'priority', 10),
+                        getattr(p, tag)) for p in self.plugins
+                       if callable(getattr(p, tag, None))]
+            filters = [f for p, f in sorted(filters, key=lambda x: x[0])]
+            return filter_chain(filters,
+                                len(filters) - 1, _inner_method, *args,
+                                **kwargs)
         else:
             return _inner_method()
+
     return method
 
 
@@ -108,11 +116,11 @@ def inclusion_tag(file_name, context_class=Context, takes_context=False):
             nodes.append(t.render(_dict))
 
         return method
+
     return wrap
 
 
 class JSONEncoder(DjangoJSONEncoder):
-
     def default(self, o):
         if isinstance(o, datetime.datetime):
             return o.strftime('%Y-%m-%d %H:%M:%S')
@@ -130,29 +138,38 @@ class JSONEncoder(DjangoJSONEncoder):
 
 
 class BaseAdminObject(object):
-
     def get_view(self, view_class, option_class=None, *args, **kwargs):
         opts = kwargs.pop('opts', {})
-        return self.admin_site.get_view_class(view_class, option_class, **opts)(self.request, *args, **kwargs)
+        return self.admin_site.get_view_class(
+            view_class, option_class, **opts)(self.request, *args, **kwargs)
 
     def get_model_view(self, view_class, model, *args, **kwargs):
-        return self.get_view(view_class, self.admin_site._registry.get(model), *args, **kwargs)
+        return self.get_view(view_class, self.admin_site._registry.get(model),
+                             *args, **kwargs)
 
     def get_admin_url(self, name, *args, **kwargs):
-        return reverse('%s:%s' % (self.admin_site.app_name, name), args=args, kwargs=kwargs)
+        return reverse(
+            '%s:%s' % (self.admin_site.app_name, name),
+            args=args,
+            kwargs=kwargs)
 
     def get_model_url(self, model, name, *args, **kwargs):
         return reverse(
             '%s:%s_%s_%s' % (self.admin_site.app_name, model._meta.app_label,
                              model._meta.model_name, name),
-            args=args, kwargs=kwargs, current_app=self.admin_site.name)
+            args=args,
+            kwargs=kwargs,
+            current_app=self.admin_site.name)
 
     def get_model_perm(self, model, name):
-        return '%s.%s_%s' % (model._meta.app_label, name, model._meta.model_name)
+        return '%s.%s_%s' % (model._meta.app_label, name,
+                             model._meta.model_name)
 
     def has_model_perm(self, model, name, user=None):
         user = user or self.user
-        return user.has_perm(self.get_model_perm(model, name)) or (name == 'view' and self.has_model_perm(model, 'change', user))
+        return user.has_perm(self.get_model_perm(
+            model, name)) or (name == 'view'
+                              and self.has_model_perm(model, 'change', user))
 
     def get_query_string(self, new_params=None, remove=None):
         if new_params is None:
@@ -191,11 +208,13 @@ class BaseAdminObject(object):
             else:
                 p[k] = v
         return mark_safe(''.join(
-            '<input type="hidden" name="%s" value="%s"/>' % (k, v) for k, v in p.items() if v))
+            '<input type="hidden" name="%s" value="%s"/>' % (k, v)
+            for k, v in p.items() if v))
 
     def render_response(self, content, response_type='json'):
         if response_type == 'json':
-            response = HttpResponse(content_type="application/json; charset=UTF-8")
+            response = HttpResponse(
+                content_type="application/json; charset=UTF-8")
             response.write(
                 json.dumps(content, cls=JSONEncoder, ensure_ascii=False))
             return response
@@ -223,8 +242,7 @@ class BaseAdminObject(object):
             user=self.user,
             ip_addr=self.request.META['REMOTE_ADDR'],
             action_flag=flag,
-            message=message
-        )
+            message=message)
         if obj:
             log.content_type = get_content_type_for_model(obj)
             log.object_id = obj.pk
@@ -233,7 +251,6 @@ class BaseAdminObject(object):
 
 
 class BaseAdminPlugin(BaseAdminObject):
-
     def __init__(self, admin_view):
         self.admin_view = admin_view
         self.admin_site = admin_view.admin_site
@@ -257,8 +274,9 @@ class BaseAdminView(BaseAdminObject, View):
         self.request_method = request.method.lower()
         self.user = request.user
 
-        self.base_plugins = [p(self) for p in getattr(self,
-                                                      "plugin_classes", [])]
+        self.base_plugins = [
+            p(self) for p in getattr(self, "plugin_classes", [])
+        ]
 
         self.args = args
         self.kwargs = kwargs
@@ -274,8 +292,8 @@ class BaseAdminView(BaseAdminObject, View):
                 self.head = self.get
 
             if self.request_method in self.http_method_names:
-                handler = getattr(
-                    self, self.request_method, self.http_method_not_allowed)
+                handler = getattr(self, self.request_method,
+                                  self.http_method_not_allowed)
             else:
                 handler = self.http_method_not_allowed
 
@@ -304,7 +322,11 @@ class BaseAdminView(BaseAdminObject, View):
 
     @filter_hook
     def get_context(self):
-        return {'admin_view': self, 'media': self.media, 'base_template': self.base_template}
+        return {
+            'admin_view': self,
+            'media': self.media,
+            'base_template': self.base_template
+        }
 
     @property
     def media(self):
@@ -321,7 +343,8 @@ class CommAdminView(BaseAdminView):
     menu_template = 'xadmin/includes/sitemenu_default.html'
 
     site_title = getattr(settings, "XADMIN_TITLE", _(u"Django Xadmin"))
-    site_footer = getattr(settings, "XADMIN_FOOTER_TITLE", _(u"my-company.inc"))
+    site_footer = getattr(settings, "XADMIN_FOOTER_TITLE",
+                          _(u"my-company.inc"))
 
     global_models_icon = {}
     default_model_icon = None
@@ -342,6 +365,7 @@ class CommAdminView(BaseAdminView):
             if 'menus' in menu:
                 for m in menu['menus']:
                     get_url(m, had_urls)
+
         get_url({'menus': site_menu}, had_urls)
 
         nav_menu = OrderedDict()
@@ -370,7 +394,8 @@ class CommAdminView(BaseAdminView):
                 if app_label.lower() in self.apps_label_title:
                     app_title = self.apps_label_title[app_label.lower()]
                 else:
-                    app_title = smart_text(apps.get_app_config(app_label).verbose_name)
+                    app_title = smart_text(
+                        apps.get_app_config(app_label).verbose_name)
                 # find app icon
                 if app_label.lower() in self.apps_icons:
                     app_icon = self.apps_icons[app_label.lower()]
@@ -383,8 +408,9 @@ class CommAdminView(BaseAdminView):
             app_menu = nav_menu[app_key]
             if app_icon:
                 app_menu['first_icon'] = app_icon
-            elif ('first_icon' not in app_menu or
-                    app_menu['first_icon'] == self.default_model_icon) and model_dict.get('icon'):
+            elif ('first_icon' not in app_menu
+                  or app_menu['first_icon'] == self.default_model_icon
+                  ) and model_dict.get('icon'):
                 app_menu['first_icon'] = model_dict['icon']
 
             if 'first_url' not in app_menu and model_dict.get('url'):
@@ -423,18 +449,24 @@ class CommAdminView(BaseAdminView):
             def filter_item(item):
                 if 'menus' in item:
                     before_filter_length = len(item['menus'])
-                    item['menus'] = [filter_item(
-                        i) for i in item['menus'] if check_menu_permission(i)]
+                    item['menus'] = [
+                        filter_item(i) for i in item['menus']
+                        if check_menu_permission(i)
+                    ]
                     after_filter_length = len(item['menus'])
                     if after_filter_length == 0 and before_filter_length > 0:
                         return None
                 return item
 
-            nav_menu = [filter_item(item) for item in menus if check_menu_permission(item)]
+            nav_menu = [
+                filter_item(item) for item in menus
+                if check_menu_permission(item)
+            ]
             nav_menu = list(filter(lambda x: x, nav_menu))
 
             if not settings.DEBUG:
-                self.request.session['nav_menu'] = json.dumps(nav_menu, cls=JSONEncoder, ensure_ascii=False)
+                self.request.session['nav_menu'] = json.dumps(
+                    nav_menu, cls=JSONEncoder, ensure_ascii=False)
                 self.request.session.modified = True
 
         def check_selected(menu, path):
@@ -453,6 +485,7 @@ class CommAdminView(BaseAdminView):
             if selected:
                 menu['selected'] = True
             return selected
+
         for menu in nav_menu:
             check_selected(menu, self.request.path)
 
@@ -470,16 +503,13 @@ class CommAdminView(BaseAdminView):
     def get_model_icon(self, model):
         icon = self.global_models_icon.get(model)
         if icon is None and model in self.admin_site._registry:
-            icon = getattr(self.admin_site._registry[model],
-                           'model_icon', self.default_model_icon)
+            icon = getattr(self.admin_site._registry[model], 'model_icon',
+                           self.default_model_icon)
         return icon
 
     @filter_hook
     def get_breadcrumb(self):
-        return [{
-            'url': self.get_admin_url('index'),
-            'title': _('Home')
-        }]
+        return [{'url': self.get_admin_url('index'), 'title': _('Home')}]
 
 
 class ModelAdminView(CommAdminView):
@@ -537,16 +567,20 @@ class ModelAdminView(CommAdminView):
     @filter_hook
     def get_object_url(self, obj):
         if self.has_change_permission(obj):
-            return self.model_admin_url("change", getattr(obj, self.opts.pk.attname))
+            return self.model_admin_url("change",
+                                        getattr(obj, self.opts.pk.attname))
         elif self.has_view_permission(obj):
-            return self.model_admin_url("detail", getattr(obj, self.opts.pk.attname))
+            return self.model_admin_url("detail",
+                                        getattr(obj, self.opts.pk.attname))
         else:
             return None
 
     def model_admin_url(self, name, *args, **kwargs):
         return reverse(
             "%s:%s_%s_%s" % (self.admin_site.app_name, self.opts.app_label,
-                             self.model_name, name), args=args, kwargs=kwargs)
+                             self.model_name, name),
+            args=args,
+            kwargs=kwargs)
 
     def get_model_perms(self):
         """
@@ -564,8 +598,8 @@ class ModelAdminView(CommAdminView):
     def get_template_list(self, template_name):
         opts = self.opts
         return (
-            "xadmin/%s/%s/%s" % (
-                opts.app_label, opts.object_name.lower(), template_name),
+            "xadmin/%s/%s/%s" % (opts.app_label, opts.object_name.lower(),
+                                 template_name),
             "xadmin/%s/%s" % (opts.app_label, template_name),
             "xadmin/%s" % template_name,
         )
@@ -574,7 +608,8 @@ class ModelAdminView(CommAdminView):
         """
         Hook for specifying field ordering.
         """
-        return self.ordering or ()  # otherwise we might try to *None, which is bad ;)
+        return self.ordering or (
+        )  # otherwise we might try to *None, which is bad ;)
 
     @filter_hook
     def queryset(self):
@@ -588,17 +623,21 @@ class ModelAdminView(CommAdminView):
         view_codename = get_permission_codename('view', self.opts)
         change_codename = get_permission_codename('change', self.opts)
 
-        return ('view' not in self.remove_permissions) and (self.user.has_perm('%s.%s' % (self.app_label, view_codename)) or
-                                                            self.user.has_perm('%s.%s' % (self.app_label, change_codename)))
+        return ('view' not in self.remove_permissions) and (
+            self.user.has_perm('%s.%s' % (self.app_label, view_codename))
+            or self.user.has_perm('%s.%s' % (self.app_label, change_codename)))
 
     def has_add_permission(self):
         codename = get_permission_codename('add', self.opts)
-        return ('add' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
+        return ('add' not in self.remove_permissions) and self.user.has_perm(
+            '%s.%s' % (self.app_label, codename))
 
     def has_change_permission(self, obj=None):
         codename = get_permission_codename('change', self.opts)
-        return ('change' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
+        return ('change' not in self.remove_permissions
+                ) and self.user.has_perm('%s.%s' % (self.app_label, codename))
 
     def has_delete_permission(self, obj=None):
         codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
+        return ('delete' not in self.remove_permissions
+                ) and self.user.has_perm('%s.%s' % (self.app_label, codename))

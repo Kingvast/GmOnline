@@ -4,7 +4,6 @@ from xadmin.views import BaseAdminPlugin, CommAdminView
 
 
 class MobilePlugin(BaseAdminPlugin):
-
     def _test_mobile(self):
         try:
             return self.request.META['HTTP_USER_AGENT'].find('Android') >= 0 or \
@@ -26,5 +25,6 @@ class MobilePlugin(BaseAdminPlugin):
 
     def block_extrahead(self, context, nodes):
         nodes.append('<script>window.__admin_ismobile__ = true;</script>')
+
 
 site.register_plugin(MobilePlugin, CommAdminView)

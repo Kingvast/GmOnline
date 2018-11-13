@@ -1,7 +1,8 @@
 # coding=utf-8
 from django import forms
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
-                                       AdminPasswordChangeForm, PasswordChangeForm)
+                                       AdminPasswordChangeForm,
+                                       PasswordChangeForm)
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
@@ -39,14 +40,13 @@ def get_permission_name(p):
 
 
 class PermissionModelMultipleChoiceField(ModelMultipleChoiceField):
-
     def label_from_instance(self, p):
         return get_permission_name(p)
 
 
 class GroupAdmin(object):
-    search_fields = ('name',)
-    ordering = ('name',)
+    search_fields = ('name', )
+    ordering = ('name', )
     style_fields = {'permissions': 'm2m_transfer'}
     model_icon = 'fa fa-group'
 
@@ -62,7 +62,7 @@ class UserAdmin(object):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
     search_fields = ('username', 'first_name', 'last_name', 'email')
-    ordering = ('username',)
+    ordering = ('username', )
     style_fields = {'user_permissions': 'm2m_transfer'}
     model_icon = 'fa fa-user'
     relfield_style = 'fk-ajax'
@@ -82,41 +82,35 @@ class UserAdmin(object):
 
     def get_form_layout(self):
         if self.org_obj:
-            self.form_layout = (
-                Main(
-                    Fieldset('',
-                             'username', 'password',
-                             css_class='unsort no_title'
-                             ),
-                    Fieldset(_('Personal info'),
-                             Row('first_name', 'last_name'),
-                             'email'
-                             ),
-                    Fieldset(_('Permissions'),
-                             'groups', 'user_permissions'
-                             ),
-                    Fieldset(_('Important dates'),
-                             'last_login', 'date_joined'
-                             ),
-                ),
-                Side(
-                    Fieldset(_('Status'),
-                             'is_active', 'is_staff', 'is_superuser',
-                             ),
-                )
-            )
+            self.form_layout = (Main(
+                Fieldset(
+                    '', 'username', 'password', css_class='unsort no_title'),
+                Fieldset(
+                    _('Personal info'), Row('first_name', 'last_name'),
+                    'email'),
+                Fieldset(_('Permissions'), 'groups', 'user_permissions'),
+                Fieldset(_('Important dates'), 'last_login', 'date_joined'),
+            ),
+                                Side(
+                                    Fieldset(
+                                        _('Status'),
+                                        'is_active',
+                                        'is_staff',
+                                        'is_superuser',
+                                    ), ))
         return super(UserAdmin, self).get_form_layout()
 
 
 class PermissionAdmin(object):
-
     def show_name(self, p):
         return get_permission_name(p)
+
     show_name.short_description = _('Permission Name')
     show_name.is_column = True
 
     model_icon = 'fa fa-lock'
     list_display = ('show_name', )
+
 
 site.register(Group, GroupAdmin)
 site.register(User, UserAdmin)
@@ -134,11 +128,13 @@ class UserFieldPlugin(BaseAdminPlugin):
 
     def get_form_datas(self, datas):
         if self.user_fields and 'data' in datas:
-            if hasattr(datas['data'],'_mutable') and not datas['data']._mutable:
+            if hasattr(datas['data'],
+                       '_mutable') and not datas['data']._mutable:
                 datas['data'] = datas['data'].copy()
             for f in self.user_fields:
                 datas['data'][f] = self.user.id
         return datas
+
 
 site.register_plugin(UserFieldPlugin, ModelFormAdminView)
 
@@ -162,13 +158,15 @@ class ModelPermissionPlugin(BaseAdminPlugin):
             list_display.remove(self.user_owned_objects_field)
         return list_display
 
+
 site.register_plugin(ModelPermissionPlugin, ModelAdminView)
 
 
 class AccountMenuPlugin(BaseAdminPlugin):
-
     def block_top_account_menu(self, context, nodes):
-        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (self.get_admin_url('account_password'), _('Change Password'))
+        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (
+            self.get_admin_url('account_password'), _('Change Password'))
+
 
 site.register_plugin(AccountMenuPlugin, CommAdminView)
 
@@ -189,7 +187,8 @@ class ChangePasswordView(ModelAdminView):
 
     def get_media(self):
         media = super(ChangePasswordView, self).get_media()
-        media = media + self.vendor('xadmin.form.css', 'xadmin.page.form.js') + self.form.media
+        media = media + self.vendor('xadmin.form.css',
+                                    'xadmin.page.form.js') + self.form.media
         return media
 
     def get_context(self):
@@ -199,19 +198,25 @@ class ChangePasswordView(ModelAdminView):
         helper.include_media = False
         self.form.helper = helper
         context.update({
-            'title': _('Change password: %s') % escape(smart_text(self.obj)),
-            'form': self.form,
-            'has_delete_permission': False,
-            'has_change_permission': True,
-            'has_view_permission': True,
-            'original': self.obj,
+            'title':
+            _('Change password: %s') % escape(smart_text(self.obj)),
+            'form':
+            self.form,
+            'has_delete_permission':
+            False,
+            'has_change_permission':
+            True,
+            'has_view_permission':
+            True,
+            'original':
+            self.obj,
         })
         return context
 
     def get_response(self):
         return TemplateResponse(self.request, [
-            self.change_user_password_template or
-            'xadmin/auth/user/change_password.html'
+            self.change_user_password_template
+            or 'xadmin/auth/user/change_password.html'
         ], self.get_context())
 
     @method_decorator(sensitive_post_parameters())
@@ -225,7 +230,8 @@ class ChangePasswordView(ModelAdminView):
         if self.form.is_valid():
             self.form.save()
             self.message_user(_('Password changed successfully.'), 'success')
-            return HttpResponseRedirect(self.model_admin_url('change', self.obj.pk))
+            return HttpResponseRedirect(
+                self.model_admin_url('change', self.obj.pk))
         else:
             return self.get_response()
 
@@ -262,8 +268,10 @@ class ChangeAccountPasswordView(ChangePasswordView):
             return self.get_response()
 
 
-user_model = settings.AUTH_USER_MODEL.lower().replace('.','/')
-site.register_view(r'^%s/(.+)/password/$' % user_model,
-                   ChangePasswordView, name='user_change_password')
-site.register_view(r'^account/password/$', ChangeAccountPasswordView,
-                   name='account_password')
+user_model = settings.AUTH_USER_MODEL.lower().replace('.', '/')
+site.register_view(
+    r'^%s/(.+)/password/$' % user_model,
+    ChangePasswordView,
+    name='user_change_password')
+site.register_view(
+    r'^account/password/$', ChangeAccountPasswordView, name='account_password')

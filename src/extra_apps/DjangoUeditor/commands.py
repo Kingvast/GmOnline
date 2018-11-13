@@ -33,9 +33,9 @@ class UEditorEventHandler(object):
                     event_codes.append(
                         jscode % {
                             "editor": editorID,
-                            "event": event[
-                                3:],
-                            "event_code": event_code})
+                            "event": event[3:],
+                            "event_code": event_code
+                        })
             except:
                 pass
 
@@ -86,11 +86,15 @@ class UEditorCommand(object):
         queryvalue_command = self.onExecuteQueryvalueCommand()
         cmds = []
         if cmd or ajax_cmd:
-            cmds.append(u"""execCommand: function() {
+            cmds.append(
+                u"""execCommand: function() {
                     %(exec_cmd)s
                     %(exec_ajax_cmd)s
                 }
-            """ % {"exec_cmd": cmd, "exec_ajax_cmd": ajax_cmd},)
+            """ % {
+                    "exec_cmd": cmd,
+                    "exec_ajax_cmd": ajax_cmd
+                }, )
 
         if queryvalue_command:
             cmds.append(u"""queryCommandValue:function(){
@@ -133,7 +137,6 @@ class UEditorCommand(object):
 
 
 class UEditorButtonCommand(UEditorCommand):
-
     def __init__(self, **kwargs):
         self.icon = kwargs.pop("icon", "")
         super(UEditorButtonCommand, self).__init__(**kwargs)
@@ -164,7 +167,6 @@ class UEditorButtonCommand(UEditorCommand):
 
 
 class UEditorComboCommand(UEditorCommand):
-
     def __init__(self, **kwargs):
         self.items = kwargs.pop("items", [])
         self.initValue = kwargs.pop("initValue", "")

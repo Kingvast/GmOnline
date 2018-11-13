@@ -77,8 +77,10 @@ class FilterPlugin(BaseAdminPlugin):
         return clean_lookup in self.list_filter
 
     def get_list_queryset(self, queryset):
-        lookup_params = dict([(smart_str(k)[len(FILTER_PREFIX):], v) for k, v in self.admin_view.params.items()
-                              if smart_str(k).startswith(FILTER_PREFIX) and v != ''])
+        lookup_params = dict(
+            [(smart_str(k)[len(FILTER_PREFIX):], v)
+             for k, v in self.admin_view.params.items()
+             if smart_str(k).startswith(FILTER_PREFIX) and v != ''])
         for p_key, p_val in iteritems(lookup_params):
             if p_val == "False":
                 lookup_params[p_key] = False
@@ -86,8 +88,11 @@ class FilterPlugin(BaseAdminPlugin):
 
         # for clean filters
         self.admin_view.has_query_param = bool(lookup_params)
-        self.admin_view.clean_query_url = self.admin_view.get_query_string(remove=[k for k in self.request.GET.keys() if
-                                                                                   k.startswith(FILTER_PREFIX)])
+        self.admin_view.clean_query_url = self.admin_view.get_query_string(
+            remove=[
+                k for k in self.request.GET.keys()
+                if k.startswith(FILTER_PREFIX)
+            ])
 
         # Normalize the types of keys
         if not self.free_query_filter:
@@ -101,8 +106,8 @@ class FilterPlugin(BaseAdminPlugin):
             for list_filter in self.list_filter:
                 if callable(list_filter):
                     # This is simply a custom list filter class.
-                    spec = list_filter(self.request, lookup_params,
-                                       self.model, self)
+                    spec = list_filter(self.request, lookup_params, self.model,
+                                       self)
                 else:
                     field_path = None
                     field_parts = []
@@ -120,22 +125,29 @@ class FilterPlugin(BaseAdminPlugin):
                             self.model, field_path)
                         field = field_parts[-1]
                     spec = field_list_filter_class(
-                        field, self.request, lookup_params,
-                        self.model, self.admin_view, field_path=field_path)
+                        field,
+                        self.request,
+                        lookup_params,
+                        self.model,
+                        self.admin_view,
+                        field_path=field_path)
 
                     if len(field_parts) > 1:
                         # Add related model name to title
-                        spec.title = "%s %s" % (field_parts[-2].name, spec.title)
+                        spec.title = "%s %s" % (field_parts[-2].name,
+                                                spec.title)
 
                     # Check if we need to use distinct()
-                    use_distinct = (use_distinct or
-                                    lookup_needs_distinct(self.opts, field_path))
+                    use_distinct = (use_distinct or lookup_needs_distinct(
+                        self.opts, field_path))
                 if spec and spec.has_output():
                     try:
                         new_qs = spec.do_filte(queryset)
                     except ValidationError as e:
                         new_qs = None
-                        self.admin_view.message_user(_("<b>Filtering error:</b> %s") % e.messages[0], 'error')
+                        self.admin_view.message_user(
+                            _("<b>Filtering error:</b> %s") % e.messages[0],
+                            'error')
                     if new_qs is not None:
                         queryset = new_qs
 
@@ -150,8 +162,8 @@ class FilterPlugin(BaseAdminPlugin):
 
         try:
             for key, value in lookup_params.items():
-                use_distinct = (
-                    use_distinct or lookup_needs_distinct(self.opts, key))
+                use_distinct = (use_distinct
+                                or lookup_needs_distinct(self.opts, key))
         except FieldDoesNotExist as e:
             raise IncorrectLookupParameters(e)
 
@@ -188,11 +200,14 @@ class FilterPlugin(BaseAdminPlugin):
                 return "%s__icontains" % field_name
 
         if self.search_fields and query:
-            orm_lookups = [construct_search(str(search_field))
-                           for search_field in self.search_fields]
+            orm_lookups = [
+                construct_search(str(search_field))
+                for search_field in self.search_fields
+            ]
             for bit in query.split():
-                or_queries = [models.Q(**{orm_lookup: bit})
-                              for orm_lookup in orm_lookups]
+                or_queries = [
+                    models.Q(**{orm_lookup: bit}) for orm_lookup in orm_lookups
+                ]
                 queryset = queryset.filter(reduce(operator.or_, or_queries))
             if not use_distinct:
                 for search_spec in orm_lookups:
@@ -208,39 +223,45 @@ class FilterPlugin(BaseAdminPlugin):
 
     # Media
     def get_media(self, media):
-        arr = filter(lambda s: isinstance(s, DateFieldListFilter), self.filter_specs)
+        arr = filter(lambda s: isinstance(s, DateFieldListFilter),
+                     self.filter_specs)
         if six.PY3:
             arr = list(arr)
         if bool(arr):
             media = media + self.vendor('datepicker.css', 'datepicker.js',
                                         'xadmin.widget.datetime.js')
-        arr = filter(lambda s: isinstance(s, RelatedFieldSearchFilter), self.filter_specs)
+        arr = filter(lambda s: isinstance(s, RelatedFieldSearchFilter),
+                     self.filter_specs)
         if six.PY3:
             arr = list(arr)
         if bool(arr):
-            media = media + self.vendor(
-                'select.js', 'select.css', 'xadmin.widget.select.js')
+            media = media + self.vendor('select.js', 'select.css',
+                                        'xadmin.widget.select.js')
         return media + self.vendor('xadmin.plugin.filters.js')
 
     # Block Views
     def block_nav_menu(self, context, nodes):
         if self.has_filters:
-            nodes.append(loader.render_to_string('xadmin/blocks/model_list.nav_menu.filters.html',
-                                                 context=get_context_dict(context)))
+            nodes.append(
+                loader.render_to_string(
+                    'xadmin/blocks/model_list.nav_menu.filters.html',
+                    context=get_context_dict(context)))
 
     def block_nav_form(self, context, nodes):
         if self.search_fields:
             context = get_context_dict(context or {})  # no error!
             context.update({
-                'search_var': SEARCH_VAR,
-                'remove_search_url': self.admin_view.get_query_string(remove=[SEARCH_VAR]),
-                'search_form_params': self.admin_view.get_form_params(remove=[SEARCH_VAR])
+                'search_var':
+                SEARCH_VAR,
+                'remove_search_url':
+                self.admin_view.get_query_string(remove=[SEARCH_VAR]),
+                'search_form_params':
+                self.admin_view.get_form_params(remove=[SEARCH_VAR])
             })
             nodes.append(
                 loader.render_to_string(
                     'xadmin/blocks/model_list.nav_form.search_form.html',
-                    context=context)
-            )
+                    context=context))
 
 
 site.register_plugin(FilterPlugin, ListAdminView)

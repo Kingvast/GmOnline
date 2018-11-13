@@ -1,4 +1,3 @@
-
 import copy
 from django import forms
 from django.db import models
@@ -18,7 +17,6 @@ BATCH_CHECKBOX_NAME = '_batch_change_fields'
 
 
 class ChangeFieldWidgetWrapper(forms.Widget):
-
     def __init__(self, widget):
         self.needs_multipart_form = widget.needs_multipart_form
         self.attrs = widget.attrs
@@ -39,12 +37,16 @@ class ChangeFieldWidgetWrapper(forms.Widget):
     def render(self, name, value, attrs=None):
         output = []
         is_required = self.widget.is_required
-        output.append(u'<label class="btn btn-info btn-xs">'
-            '<input type="checkbox" class="batch-field-checkbox" name="%s" value="%s"%s/> %s</label>' %
-            (BATCH_CHECKBOX_NAME, name, (is_required and ' checked="checked"' or ''), _('Change this field')))
-        output.extend([('<div class="control-wrap" style="margin-top: 10px;%s" id="id_%s_wrap_container">' %
-            ((not is_required and 'display: none;' or ''), name)),
-            self.widget.render(name, value, attrs), '</div>'])
+        output.append(
+            u'<label class="btn btn-info btn-xs">'
+            '<input type="checkbox" class="batch-field-checkbox" name="%s" value="%s"%s/> %s</label>'
+            % (BATCH_CHECKBOX_NAME, name,
+               (is_required and ' checked="checked"' or ''),
+               _('Change this field')))
+        output.extend([(
+            '<div class="control-wrap" style="margin-top: 10px;%s" id="id_%s_wrap_container">'
+            % ((not is_required and 'display: none;' or ''), name)),
+                       self.widget.render(name, value, attrs), '</div>'])
         return mark_safe(u''.join(output))
 
     def build_attrs(self, extra_attrs=None, **kwargs):
@@ -57,6 +59,7 @@ class ChangeFieldWidgetWrapper(forms.Widget):
 
     def id_for_label(self, id_):
         return self.widget.id_for_label(id_)
+
 
 class BatchChangeAction(BaseActionView):
 
@@ -86,15 +89,18 @@ class BatchChangeAction(BaseActionView):
                 for f, v in data.items():
                     f.save_form_data(obj, v)
                 obj.save()
-            self.message_user(_("Successfully change %(count)d %(items)s.") % {
-                "count": n, "items": model_ngettext(self.opts, n)
-            }, 'success')
+            self.message_user(
+                _("Successfully change %(count)d %(items)s.") % {
+                    "count": n,
+                    "items": model_ngettext(self.opts, n)
+                }, 'success')
 
     def get_change_form(self, is_post, fields):
         edit_view = self.get_model_view(ModelFormAdminView, self.model)
 
         def formfield_for_dbfield(db_field, **kwargs):
-            formfield = edit_view.formfield_for_dbfield(db_field, required=is_post, **kwargs)
+            formfield = edit_view.formfield_for_dbfield(
+                db_field, required=is_post, **kwargs)
             formfield.widget = ChangeFieldWidgetWrapper(formfield.widget)
             return formfield
 
@@ -109,7 +115,10 @@ class BatchChangeAction(BaseActionView):
         if not self.has_change_permission():
             raise PermissionDenied
 
-        change_fields = [f for f in self.request.POST.getlist(BATCH_CHECKBOX_NAME) if f in self.batch_fields]
+        change_fields = [
+            f for f in self.request.POST.getlist(BATCH_CHECKBOX_NAME)
+            if f in self.batch_fields
+        ]
 
         if change_fields and self.request.POST.get('post'):
             self.form_obj = self.get_change_form(True, change_fields)(
@@ -123,9 +132,16 @@ class BatchChangeAction(BaseActionView):
         helper = FormHelper()
         helper.form_tag = False
         helper.include_media = False
-        helper.add_layout(Layout(Container(Col('full',
-            Fieldset("", *self.form_obj.fields.keys(), css_class="unsort no_title"), horizontal=True, span=12)
-        )))
+        helper.add_layout(
+            Layout(
+                Container(
+                    Col('full',
+                        Fieldset(
+                            "",
+                            *self.form_obj.fields.keys(),
+                            css_class="unsort no_title"),
+                        horizontal=True,
+                        span=12))))
         self.form_obj.helper = helper
         count = len(queryset)
         if count == 1:
@@ -145,8 +161,9 @@ class BatchChangeAction(BaseActionView):
             'action_checkbox_name': ACTION_CHECKBOX_NAME,
         })
 
-        return TemplateResponse(self.request, self.batch_change_form_template or
-                                self.get_template_list('views/batch_change_form.html'), context)
+        return TemplateResponse(
+            self.request, self.batch_change_form_template
+            or self.get_template_list('views/batch_change_form.html'), context)
 
     @filter_hook
     def get_media(self):

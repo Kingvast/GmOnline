@@ -30,7 +30,6 @@ def get_gallery_modal():
 
 
 class AdminImageField(forms.ImageField):
-
     def widget_attrs(self, widget):
         return {'label': self.label}
 
@@ -39,6 +38,7 @@ class AdminImageWidget(forms.FileInput):
     """
     A ImageField Widget that shows its current value if it has one.
     """
+
     def __init__(self, attrs={}):
         super(AdminImageWidget, self).__init__(attrs)
 
@@ -46,16 +46,18 @@ class AdminImageWidget(forms.FileInput):
         output = []
         if value and hasattr(value, "url"):
             label = self.attrs.get('label', name)
-            output.append('<a href="%s" target="_blank" title="%s" data-gallery="gallery"><img src="%s" class="field_img"/></a><br/>%s ' %
-                         (value.url, label, value.url, _('Change:')))
+            output.append(
+                '<a href="%s" target="_blank" title="%s" data-gallery="gallery"><img src="%s" class="field_img"/></a><br/>%s '
+                % (value.url, label, value.url, _('Change:')))
         output.append(super(AdminImageWidget, self).render(name, value, attrs))
         return mark_safe(u''.join(output))
 
     def use_required_attribute(self, initial):
-        return super(AdminImageWidget, self).use_required_attribute(initial) and not initial
+        return super(AdminImageWidget,
+                     self).use_required_attribute(initial) and not initial
+
 
 class ModelDetailPlugin(BaseAdminPlugin):
-
     def __init__(self, admin_view):
         super(ModelDetailPlugin, self).__init__(admin_view)
         self.include_image = False
@@ -71,7 +73,9 @@ class ModelDetailPlugin(BaseAdminPlugin):
         if isinstance(result.field, models.ImageField):
             if result.value:
                 img = getattr(result.obj, field_name)
-                result.text = mark_safe('<a href="%s" target="_blank" title="%s" data-gallery="gallery"><img src="%s" class="field_img"/></a>' % (img.url, result.label, img.url))
+                result.text = mark_safe(
+                    '<a href="%s" target="_blank" title="%s" data-gallery="gallery"><img src="%s" class="field_img"/></a>'
+                    % (img.url, result.label, img.url))
                 self.include_image = True
         return result
 

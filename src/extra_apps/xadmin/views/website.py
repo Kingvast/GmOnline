@@ -22,7 +22,6 @@ class IndexView(Dashboard):
 
 
 class UserSettingView(BaseAdminView):
-
     @never_cache
     def post(self, request):
         key = request.POST['key']
@@ -83,9 +82,11 @@ class LogoutView(BaseAdminView):
     def get(self, request, *args, **kwargs):
         context = self.get_context()
         defaults = {
-            'extra_context': context,
+            'extra_context':
+            context,
             # 'current_app': self.admin_site.name,
-            'template_name': self.logout_template or 'xadmin/views/logged_out.html',
+            'template_name':
+            self.logout_template or 'xadmin/views/logged_out.html',
         }
         if self.logout_template is not None:
             defaults['template_name'] = self.logout_template

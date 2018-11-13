@@ -28,12 +28,12 @@ def calc_path(OutputPath, instance=None):
 
     return OutputPath
 
+
 # width=600, height=300, toolbars="full", imagePath="", filePath="", upload_settings={},
-    # settings={},command=None,event_handler=None
+# settings={},command=None,event_handler=None
 
 
 class UEditorWidget(forms.Textarea):
-
     def __init__(self, attrs=None):
 
         params = attrs.copy()
@@ -154,13 +154,25 @@ class UEditorWidget(forms.Textarea):
                     self._upload_settings['fileManagerListPath'], model_inst)
             # 设置默认值，未指定涂鸦、截图、远程抓图、图片目录时,默认均等于imagePath
             if uSettings['imagePathFormat'] != "":
-                uSettings['scrawlPathFormat'] = uSettings['scrawlPathFormat'] if "scrawlPathFormat" in self._upload_settings else uSettings['imagePathFormat']
-                uSettings['videoPathFormat'] = uSettings['videoPathFormat'] if "videoPathFormat" in self._upload_settings else uSettings['imagePathFormat']
-                uSettings['snapscreenPathFormat'] = uSettings['snapscreenPathFormat'] if "snapscreenPathFormat" in self._upload_settings else uSettings['imagePathFormat']
-                uSettings['catcherPathFormat'] = uSettings['catcherPathFormat'] if "catcherPathFormat" in self._upload_settings else uSettings['imagePathFormat']
-                uSettings['imageManagerListPath'] = uSettings['imageManagerListPath'] if "imageManagerListPath" in self._upload_settings else uSettings['imagePathFormat']
+                uSettings['scrawlPathFormat'] = uSettings[
+                    'scrawlPathFormat'] if "scrawlPathFormat" in self._upload_settings else uSettings[
+                        'imagePathFormat']
+                uSettings['videoPathFormat'] = uSettings[
+                    'videoPathFormat'] if "videoPathFormat" in self._upload_settings else uSettings[
+                        'imagePathFormat']
+                uSettings['snapscreenPathFormat'] = uSettings[
+                    'snapscreenPathFormat'] if "snapscreenPathFormat" in self._upload_settings else uSettings[
+                        'imagePathFormat']
+                uSettings['catcherPathFormat'] = uSettings[
+                    'catcherPathFormat'] if "catcherPathFormat" in self._upload_settings else uSettings[
+                        'imagePathFormat']
+                uSettings['imageManagerListPath'] = uSettings[
+                    'imageManagerListPath'] if "imageManagerListPath" in self._upload_settings else uSettings[
+                        'imagePathFormat']
             if uSettings['filePathFormat'] != "":
-                uSettings['fileManagerListPath'] = uSettings['fileManagerListPath'] if "fileManagerListPath" in self._upload_settings else uSettings['imagePathFormat']
+                uSettings['fileManagerListPath'] = uSettings[
+                    'fileManagerListPath'] if "fileManagerListPath" in self._upload_settings else uSettings[
+                        'imagePathFormat']
         except:
             pass
 
@@ -169,11 +181,7 @@ class UEditorWidget(forms.Textarea):
             value = ''
         # 传入模板的参数
         editor_id = "id_%s" % name.replace("-", "_")
-        uSettings = {
-            "name": name,
-            "id": editor_id,
-            "value": value
-        }
+        uSettings = {"name": name, "id": editor_id, "value": value}
         if isinstance(self.command, list):
             cmdjs = ""
             if isinstance(self.command, list):
@@ -185,7 +193,8 @@ class UEditorWidget(forms.Textarea):
 
         uSettings["settings"] = self.ueditor_settings.copy()
         uSettings["settings"].update({
-            "serverUrl": "/ueditor/controller/?%s" % urlencode(self._upload_settings)
+            "serverUrl":
+            "/ueditor/controller/?%s" % urlencode(self._upload_settings)
         })
         # 生成事件侦听
         if self.event_handler:
@@ -201,11 +210,9 @@ class UEditorWidget(forms.Textarea):
         return mark_safe(render_to_string('ueditor.html', context))
 
     class Media:
-        js = ("ueditor/ueditor.config.js",
-              "ueditor/ueditor.all.min.js")
+        js = ("ueditor/ueditor.config.js", "ueditor/ueditor.all.min.js")
 
 
 class AdminUEditorWidget(AdminTextareaWidget, UEditorWidget):
-
     def __init__(self, **kwargs):
         super(AdminUEditorWidget, self).__init__(**kwargs)

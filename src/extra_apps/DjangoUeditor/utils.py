@@ -25,8 +25,7 @@ class FileSize():
             # 增加检查是否是全数字类型的字符串，添加默认的单位Byte
             if oSize.isdigit():
                 size_Byte = int(oSize)
-            pattern = re.compile(
-                r"(\d*\.?(?=\d)\d*)(byte|kb|mb|gb|tb)", re.I)
+            pattern = re.compile(r"(\d*\.?(?=\d)\d*)(byte|kb|mb|gb|tb)", re.I)
             match = pattern.match(oSize)
             if match:
                 m_size, m_unit = match.groups()
@@ -64,8 +63,8 @@ class FileSize():
         if (self.size % FileSize.SIZE_UNIT[unit]) == 0:
             return "%s%s" % ((self.size / FileSize.SIZE_UNIT[unit]), unit)
         else:
-            return "%0.2f%s" % (
-                round(float(self.size) / float(FileSize.SIZE_UNIT[unit]), 2), unit)
+            return "%0.2f%s" % (round(
+                float(self.size) / float(FileSize.SIZE_UNIT[unit]), 2), unit)
 
     def __str__(self):
         return self.FriendValue

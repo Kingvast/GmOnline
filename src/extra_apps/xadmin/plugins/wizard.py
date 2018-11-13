@@ -64,7 +64,10 @@ class WizardFormPlugin(BaseAdminPlugin):
 
     # Plugin replace methods
     def init_request(self, *args, **kwargs):
-        if self.request.is_ajax() or ("_ajax" in self.request.GET) or not hasattr(self.request, 'session') or (args and not self.wizard_for_update):
+        if self.request.is_ajax() or (
+                "_ajax" in self.request.GET) or not hasattr(
+                    self.request, 'session') or (args and
+                                                 not self.wizard_for_update):
             # update view
             return False
         return bool(self.wizard_form_list)
@@ -72,9 +75,9 @@ class WizardFormPlugin(BaseAdminPlugin):
     def prepare_form(self, __):
         # init storage and step helper
         self.prefix = normalize_name(self.__class__.__name__)
-        self.storage = get_storage(
-            self.storage_name, self.prefix, self.request,
-            getattr(self, 'file_storage', None))
+        self.storage = get_storage(self.storage_name, self.prefix,
+                                   self.request,
+                                   getattr(self, 'file_storage', None))
         self.steps = StepsHelper(self)
         self.wizard_goto_step = False
 
@@ -88,7 +91,8 @@ class WizardFormPlugin(BaseAdminPlugin):
             # contains a valid step name. If one was found, render the requested
             # form. (This makes stepping back a lot easier).
             wizard_goto_step = self.request.POST.get('wizard_goto_step', None)
-            if wizard_goto_step and int(wizard_goto_step) < len(self.get_form_list()):
+            if wizard_goto_step and int(wizard_goto_step) < len(
+                    self.get_form_list()):
                 obj = self.get_form_list().keys()
                 if six.PY3:
                     obj = [s for s in obj]
@@ -106,8 +110,8 @@ class WizardFormPlugin(BaseAdminPlugin):
                     'ManagementForm data is missing or has been tampered.')
 
             form_current_step = management_form.cleaned_data['current_step']
-            if (form_current_step != self.steps.current and
-                    self.storage.current_step is not None):
+            if (form_current_step != self.steps.current
+                    and self.storage.current_step is not None):
                 # form refreshed, change current step
                 self.storage.current_step = form_current_step
 
@@ -127,12 +131,18 @@ class WizardFormPlugin(BaseAdminPlugin):
             step = self.steps.current
         attrs = self.get_form_list()[step]
         if type(attrs) in (list, tuple):
-            return modelform_factory(self.model, form=forms.ModelForm,
-                                     fields=attrs, formfield_callback=self.admin_view.formfield_for_dbfield)
+            return modelform_factory(
+                self.model,
+                form=forms.ModelForm,
+                fields=attrs,
+                formfield_callback=self.admin_view.formfield_for_dbfield)
         elif type(attrs) is dict:
             if attrs.get('fields', None):
-                return modelform_factory(self.model, form=forms.ModelForm,
-                                         fields=attrs['fields'], formfield_callback=self.admin_view.formfield_for_dbfield)
+                return modelform_factory(
+                    self.model,
+                    form=forms.ModelForm,
+                    fields=attrs['fields'],
+                    formfield_callback=self.admin_view.formfield_for_dbfield)
             if attrs.get('callback', None):
                 callback = attrs['callback']
                 if callable(callback):
@@ -147,16 +157,19 @@ class WizardFormPlugin(BaseAdminPlugin):
         if step is None:
             step = self.steps.current
         form = self.get_step_form(step)
-        return form(prefix=self._get_form_prefix(step),
-                    data=self.storage.get_step_data(step),
-                    files=self.storage.get_step_files(step))
+        return form(
+            prefix=self._get_form_prefix(step),
+            data=self.storage.get_step_data(step),
+            files=self.storage.get_step_files(step))
 
     def get_form_datas(self, datas):
         datas['prefix'] = self._get_form_prefix()
         if self.request.method == 'POST' and self.wizard_goto_step:
             datas.update({
-                'data': self.storage.get_step_data(self.steps.current),
-                'files': self.storage.get_step_files(self.steps.current)
+                'data':
+                self.storage.get_step_data(self.steps.current),
+                'files':
+                self.storage.get_step_files(self.steps.current)
             })
         return datas
 
@@ -260,7 +273,8 @@ class WizardFormPlugin(BaseAdminPlugin):
                                 str(callback))(self, cleaned_data, form_obj)
                 elif isinstance(form_obj.cleaned_data, (tuple, list)):
                     cleaned_data.update({
-                        'formset-%s' % form_key: form_obj.cleaned_data
+                        'formset-%s' % form_key:
+                        form_obj.cleaned_data
                     })
                 else:
                     cleaned_data.update(form_obj.cleaned_data)
@@ -325,19 +339,27 @@ class WizardFormPlugin(BaseAdminPlugin):
     def block_before_fieldsets(self, context, nodes):
         context = context.update(dict(self.storage.extra_data))
         context['wizard'] = {
-            'steps': self.steps,
-            'management_form': ManagementForm(prefix=self.prefix, initial={
-                'current_step': self.steps.current,
-            }),
+            'steps':
+            self.steps,
+            'management_form':
+            ManagementForm(
+                prefix=self.prefix,
+                initial={
+                    'current_step': self.steps.current,
+                }),
         }
-        nodes.append(loader.render_to_string('xadmin/blocks/model_form.before_fieldsets.wizard.html', context))
+        nodes.append(
+            loader.render_to_string(
+                'xadmin/blocks/model_form.before_fieldsets.wizard.html',
+                context))
 
     def block_submit_line(self, context, nodes):
         context = context.update(dict(self.storage.extra_data))
-        context['wizard'] = {
-            'steps': self.steps
-        }
+        context['wizard'] = {'steps': self.steps}
 
-        nodes.append(loader.render_to_string('xadmin/blocks/model_form.submit_line.wizard.html', context))
+        nodes.append(
+            loader.render_to_string(
+                'xadmin/blocks/model_form.submit_line.wizard.html', context))
+
 
 site.register_plugin(WizardFormPlugin, ModelFormAdminView)

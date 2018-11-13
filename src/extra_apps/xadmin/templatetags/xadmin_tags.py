@@ -34,6 +34,7 @@ def view_block(context, block_name, *args, **kwargs):
 def admin_urlname(value, arg):
     return 'xadmin:%s_%s_%s' % (value.app_label, value.model_name, arg)
 
+
 static = register.simple_tag(static)
 
 
@@ -60,9 +61,10 @@ def do_blockcapture(parser, token):
     try:
         tag_name, args = token.contents.split(None, 1)
     except ValueError:
-        raise template.TemplateSyntaxError("'blockcapture' node requires a variable name.")
+        raise template.TemplateSyntaxError(
+            "'blockcapture' node requires a variable name.")
 
-    nodelist = parser.parse(('endblockcapture',))
+    nodelist = parser.parse(('endblockcapture', ))
     parser.delete_first_token()
 
     return BlockcaptureNode(nodelist, args)

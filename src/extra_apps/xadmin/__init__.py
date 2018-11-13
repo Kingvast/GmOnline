@@ -1,7 +1,7 @@
-
-VERSION = (0,6,0)
+VERSION = (0, 6, 0)
 
 from xadmin.sites import AdminSite, site
+
 
 class Settings(object):
     pass
@@ -20,11 +20,12 @@ def autodiscover():
     from django.apps import apps
 
     setattr(settings, 'CRISPY_TEMPLATE_PACK', 'bootstrap3')
-    setattr(settings, 'CRISPY_CLASS_CONVERTERS', {
-        "textinput": "textinput textInput form-control",
-        "fileinput": "fileinput fileUpload form-control",
-        "passwordinput": "textinput textInput form-control",
-    })
+    setattr(
+        settings, 'CRISPY_CLASS_CONVERTERS', {
+            "textinput": "textinput textInput form-control",
+            "fileinput": "fileinput fileUpload form-control",
+            "passwordinput": "textinput textInput form-control",
+        })
 
     from xadmin.views import register_builtin_views
     register_builtin_views(site)
@@ -66,5 +67,6 @@ def autodiscover():
             # attempting to import it, otherwise we want it to bubble up.
             if module_has_submodule(mod, 'adminx'):
                 raise
+
 
 default_app_config = 'xadmin.apps.XAdminConfig'

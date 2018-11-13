@@ -1,4 +1,3 @@
-
 import calendar
 import datetime
 import decimal
@@ -54,11 +53,16 @@ class ChartWidget(ModelBaseWidget):
             super(ChartWidget, self).filte_choices_model(model, modeladmin)
 
     def get_chart_url(self, name, v):
-        return self.model_admin_url('chart', name) + "?" + urlencode(self.list_params)
+        return self.model_admin_url('chart', name) + "?" + urlencode(
+            self.list_params)
 
     def context(self, context):
         context.update({
-            'charts': [{"name": name, "title": v['title'], 'url': self.get_chart_url(name, v)} for name, v in self.charts.items()],
+            'charts': [{
+                "name": name,
+                "title": v['title'],
+                'url': self.get_chart_url(name, v)
+            } for name, v in self.charts.items()],
         })
 
     # Media
@@ -87,7 +91,8 @@ class ChartsPlugin(BaseAdminPlugin):
         return bool(self.data_charts)
 
     def get_chart_url(self, name, v):
-        return self.admin_view.model_admin_url('chart', name) + self.admin_view.get_query_string()
+        return self.admin_view.model_admin_url(
+            'chart', name) + self.admin_view.get_query_string()
 
     # Media
     def get_media(self, media):
@@ -96,10 +101,16 @@ class ChartsPlugin(BaseAdminPlugin):
     # Block Views
     def block_results_top(self, context, nodes):
         context.update({
-            'charts': [{"name": name, "title": v['title'], 'url': self.get_chart_url(name, v)} for name, v in self.data_charts.items()],
+            'charts': [{
+                "name": name,
+                "title": v['title'],
+                'url': self.get_chart_url(name, v)
+            } for name, v in self.data_charts.items()],
         })
-        nodes.append(loader.render_to_string('xadmin/blocks/model_list.results_top.charts.html',
-                                             context=get_context_dict(context)))
+        nodes.append(
+            loader.render_to_string(
+                'xadmin/blocks/model_list.results_top.charts.html',
+                context=get_context_dict(context)))
 
 
 class ChartsView(ListAdminView):
@@ -120,11 +131,14 @@ class ChartsView(ListAdminView):
 
         self.x_field = self.chart['x-field']
         y_fields = self.chart['y-field']
-        self.y_fields = (
-            y_fields,) if type(y_fields) not in (list, tuple) else y_fields
+        self.y_fields = (y_fields, ) if type(y_fields) not in (
+            list, tuple) else y_fields
 
-        datas = [{"data":[], "label": force_text(label_for_field(
-            i, self.model, model_admin=self))} for i in self.y_fields]
+        datas = [{
+            "data": [],
+            "label":
+            force_text(label_for_field(i, self.model, model_admin=self))
+        } for i in self.y_fields]
 
         self.make_result_list()
 
@@ -134,11 +148,24 @@ class ChartsView(ListAdminView):
                 yf, yattrs, yv = lookup_field(yfname, obj, self)
                 datas[i]["data"].append((value, yv))
 
-        option = {'series': {'lines': {'show': True}, 'points': {'show': False}},
-                  'grid': {'hoverable': True, 'clickable': True}}
+        option = {
+            'series': {
+                'lines': {
+                    'show': True
+                },
+                'points': {
+                    'show': False
+                }
+            },
+            'grid': {
+                'hoverable': True,
+                'clickable': True
+            }
+        }
         try:
             xfield = self.opts.get_field(self.x_field)
-            if type(xfield) in (models.DateTimeField, models.DateField, models.TimeField):
+            if type(xfield) in (models.DateTimeField, models.DateField,
+                                models.TimeField):
                 option['xaxis'] = {'mode': "time", 'tickLength': 5}
                 if type(xfield) is models.DateField:
                     option['xaxis']['timeformat'] = "%y/%m/%d"
@@ -155,6 +182,7 @@ class ChartsView(ListAdminView):
         result = json.dumps(content, cls=JSONEncoder, ensure_ascii=False)
 
         return HttpResponse(result)
+
 
 site.register_plugin(ChartsPlugin, ListAdminView)
 site.register_modelview(r'^chart/(.+)/$', ChartsView, name='%s_%s_chart')
