@@ -16,7 +16,8 @@ urlpatterns = [
     url(r'^update/pwd/$', UpdatePwdView.as_view(), name='update_pwd'),
 
     # 发送邮箱验证码
-    url(r'^sendemail_code/$', SendEmailCodeView.as_view(),
+    url(r'^sendemail_code/$',
+        SendEmailCodeView.as_view(),
         name='sendemail_code'),
 
     # 修改邮箱

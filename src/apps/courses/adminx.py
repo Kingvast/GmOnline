@@ -19,12 +19,15 @@ class CourseAdmin(object):
     """
     Course的admin管理器
     """
-    
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times',
-                    'students', 'get_zj_nums', 'go_to']
+
+    list_display = [
+        'name', 'desc', 'detail', 'degree', 'learn_times', 'students',
+        'get_zj_nums', 'go_to'
+    ]
     search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times',
-                   'students']
+    list_filter = [
+        'name', 'desc', 'detail', 'degree', 'learn_times', 'students'
+    ]
     ordering = ['-click_nums']
     readonly_fields = ['click_nums']
     list_editable = ['degree', 'desc']
@@ -35,7 +38,7 @@ class CourseAdmin(object):
     # 富文本
     style_fields = {"detail": "ueditor"}
     import_excel = True
-    
+
     # 过滤列表中的数据
     def queryset(self):
         qs = super(CourseAdmin, self).queryset()
@@ -63,11 +66,13 @@ class CourseAdmin(object):
 
 
 class BannerCourseAdmin(object):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times',
-                    'students']
+    list_display = [
+        'name', 'desc', 'detail', 'degree', 'learn_times', 'students'
+    ]
     search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times',
-                   'students']
+    list_filter = [
+        'name', 'desc', 'detail', 'degree', 'learn_times', 'students'
+    ]
     ordering = ['-click_nums']
     readonly_fields = ['click_nums']
     exclude = ['fav_nums']

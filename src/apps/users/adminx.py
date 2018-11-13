@@ -10,29 +10,22 @@ from .models import EmailVerifyRecord, Banner
 class UserProfileAdmin(UserAdmin):
     def get_form_layout(self):
         if self.org_obj:
-            self.form_layout = (
-                Main(
-                    Fieldset('',
-                             'username', 'password',
-                             css_class='unsort no_title'
-                             ),
-                    Fieldset(_('Personal info'),
-                             Row('first_name', 'last_name'),
-                             'email'
-                             ),
-                    Fieldset(_('Permissions'),
-                             'groups', 'user_permissions'
-                             ),
-                    Fieldset(_('Important dates'),
-                             'last_login', 'date_joined'
-                             ),
-                ),
-                Side(
-                    Fieldset(_('Status'),
-                             'is_active', 'is_staff', 'is_superuser',
-                             ),
-                )
-            )
+            self.form_layout = (Main(
+                Fieldset(
+                    '', 'username', 'password', css_class='unsort no_title'),
+                Fieldset(
+                    _('Personal info'), Row('first_name', 'last_name'),
+                    'email'),
+                Fieldset(_('Permissions'), 'groups', 'user_permissions'),
+                Fieldset(_('Important dates'), 'last_login', 'date_joined'),
+            ),
+                                Side(
+                                    Fieldset(
+                                        _('Status'),
+                                        'is_active',
+                                        'is_staff',
+                                        'is_superuser',
+                                    ), ))
         return super(UserAdmin, self).get_form_layout()
 
 

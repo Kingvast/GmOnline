@@ -179,8 +179,10 @@ class ModifyPwdView(View):
             pwd2 = request.POST.get('password2', '')
             email = request.POST.get('email', '')
             if pwd1 != pwd2:
-                return render(request, 'password_reset.html',
-                              {'email': email, 'msg': '密码不一致'})
+                return render(request, 'password_reset.html', {
+                    'email': email,
+                    'msg': '密码不一致'
+                })
             user = UserProfile.objects.get(email=email)
             user.password = make_password(pwd2)
             user.save()
@@ -188,8 +190,10 @@ class ModifyPwdView(View):
             return render(request, 'login.html')
         else:
             email = request.POST.get('email', '')
-            return render(request, 'password_reset.html',
-                          {'email': email, 'modify_form': modify_form})
+            return render(request, 'password_reset.html', {
+                'email': email,
+                'modify_form': modify_form
+            })
 
 
 class UserInfoView(LoginRequiredMixin, View):
@@ -204,11 +208,12 @@ class UserInfoView(LoginRequiredMixin, View):
         user_info_form = UserInfoForm(request.POST, instance=request.user)
         if user_info_form.is_valid():
             user_info_form.save()
-            return HttpResponse('{"status":"success"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"status":"success"}', content_type='application/json')
         else:
-            return HttpResponse(json.dumps(user_info_form.errors),
-                                content_type='application/json')
+            return HttpResponse(
+                json.dumps(user_info_form.errors),
+                content_type='application/json')
 
 
 class UploadImageView(LoginRequiredMixin, View):
@@ -217,15 +222,15 @@ class UploadImageView(LoginRequiredMixin, View):
     """
 
     def post(self, request):
-        image_form = UploadImageForm(request.POST, request.FILES,
-                                     instance=request.user)
+        image_form = UploadImageForm(
+            request.POST, request.FILES, instance=request.user)
         if image_form.is_valid():
             image_form.save()
-            return HttpResponse('{"status":"success"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"status":"success"}', content_type='application/json')
         else:
-            return HttpResponse('{"status":"fail"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"status":"fail"}', content_type='application/json')
 
 
 class UpdatePwdView(View):
@@ -239,17 +244,19 @@ class UpdatePwdView(View):
             pwd1 = request.POST.get('password1', '')
             pwd2 = request.POST.get('password2', '')
             if pwd1 != pwd2:
-                return HttpResponse('{"status":"fail","msg":"密码不一致"}',
-                                    content_type='application/json')
+                return HttpResponse(
+                    '{"status":"fail","msg":"密码不一致"}',
+                    content_type='application/json')
             user = request.user
             user.password = make_password(pwd2)
             user.save()
 
-            return HttpResponse('{"status":"success"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"status":"success"}', content_type='application/json')
         else:
-            return HttpResponse(json.dumps(modify_form.errors),
-                                content_type='application/json')
+            return HttpResponse(
+                json.dumps(modify_form.errors),
+                content_type='application/json')
 
 
 class SendEmailCodeView(LoginRequiredMixin, View):
@@ -261,12 +268,12 @@ class SendEmailCodeView(LoginRequiredMixin, View):
         email = request.GET.get('email', '')
 
         if UserProfile.objects.filter(email=email):
-            return HttpResponse('{"email":"邮箱已经存在"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"email":"邮箱已经存在"}', content_type='application/json')
         send_register_email(email, 'update_email')
 
-        return HttpResponse('{"status":"success"}',
-                            content_type='application/json')
+        return HttpResponse(
+            '{"status":"success"}', content_type='application/json')
 
 
 class UpdateEmailView(LoginRequiredMixin, View):
@@ -278,18 +285,17 @@ class UpdateEmailView(LoginRequiredMixin, View):
         email = request.POST.get('email', '')
         code = request.POST.get('code', '')
 
-        existed_records = EmailVerifyRecord.objects.filter(email=email,
-                                                           code=code,
-                                                           send_type='update_email')
+        existed_records = EmailVerifyRecord.objects.filter(
+            email=email, code=code, send_type='update_email')
         if existed_records:
             user = request.user
             user.email = email
             user.save()
-            return HttpResponse('{"status":"success"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"status":"success"}', content_type='application/json')
         else:
-            return HttpResponse('{"email":"验证码出错"}',
-                                content_type='application/json')
+            return HttpResponse(
+                '{"email":"验证码出错"}', content_type='application/json')
 
 
 class MyCourseView(LoginRequiredMixin, View):
@@ -299,9 +305,8 @@ class MyCourseView(LoginRequiredMixin, View):
 
     def get(self, request):
         user_courses = UserCourse.objects.filter(user=request.user)
-        return render(request, 'usercenter-mycourse.html', {
-            'user_courses': user_courses
-        })
+        return render(request, 'usercenter-mycourse.html',
+                      {'user_courses': user_courses})
 
 
 class MyFavOrgView(LoginRequiredMixin, View):
@@ -316,9 +321,8 @@ class MyFavOrgView(LoginRequiredMixin, View):
             org_id = fav_org.fav_id
             org = CourseOrg.objects.get(id=org_id)
             org_list.append(org)
-        return render(request, 'usercenter-fav-org.html', {
-            'org_list': org_list
-        })
+        return render(request, 'usercenter-fav-org.html',
+                      {'org_list': org_list})
 
 
 class MyFavTeacherView(LoginRequiredMixin, View):
@@ -328,15 +332,14 @@ class MyFavTeacherView(LoginRequiredMixin, View):
 
     def get(self, request):
         teacher_list = []
-        fav_teachers = UserFavorite.objects.filter(user=request.user,
-                                                   fav_type=3)
+        fav_teachers = UserFavorite.objects.filter(
+            user=request.user, fav_type=3)
         for fav_teacher in fav_teachers:
             teacher_id = fav_teacher.fav_id
             teacher = Teacher.objects.get(id=teacher_id)
             teacher_list.append(teacher)
-        return render(request, 'usercenter-fav-teacher.html', {
-            'teacher_list': teacher_list
-        })
+        return render(request, 'usercenter-fav-teacher.html',
+                      {'teacher_list': teacher_list})
 
 
 class MyFavCourseView(LoginRequiredMixin, View):
@@ -346,14 +349,14 @@ class MyFavCourseView(LoginRequiredMixin, View):
 
     def get(self, request):
         course_list = []
-        fav_courses = UserFavorite.objects.filter(user=request.user, fav_type=1)
+        fav_courses = UserFavorite.objects.filter(
+            user=request.user, fav_type=1)
         for fav_course in fav_courses:
             course_id = fav_course.fav_id
             teacher = Course.objects.get(id=course_id)
             course_list.append(teacher)
-        return render(request, 'usercenter-fav-course.html', {
-            'course_list': course_list
-        })
+        return render(request, 'usercenter-fav-course.html',
+                      {'course_list': course_list})
 
 
 class MymessageView(LoginRequiredMixin, View):
@@ -365,8 +368,8 @@ class MymessageView(LoginRequiredMixin, View):
         all_messages = UserMessage.objects.filter(user=request.user.id)
 
         # 用户进入个人消息后清空未读消息的记录
-        all_unread_messages = UserMessage.objects.filter(user=request.user.id,
-                                                         has_read=False)
+        all_unread_messages = UserMessage.objects.filter(
+            user=request.user.id, has_read=False)
         for unread_message in all_unread_messages:
             unread_message.has_read = True
             unread_message.save()
@@ -380,9 +383,8 @@ class MymessageView(LoginRequiredMixin, View):
         p = Paginator(all_messages, 5, request=request)
 
         messages = p.page(page)
-        return render(request, 'usercenter-message.html', {
-            'messages': messages
-        })
+        return render(request, 'usercenter-message.html',
+                      {'messages': messages})
 
 
 def page_not_found(request):
