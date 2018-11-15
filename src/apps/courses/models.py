@@ -1,10 +1,12 @@
 # _*_ encoding:utf-8 _*_
 from __future__ import unicode_literals
+
 from datetime import datetime
 
 from django.db import models
-from organization.models import CourseOrg, Teacher
+
 from DjangoUeditor.models import UEditorField
+from organization.models import CourseOrg, Teacher
 
 
 # Create your models here.

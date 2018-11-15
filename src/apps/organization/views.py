@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.views.generic import View
 from django.db.models import Q
 from django.http import HttpResponse
-from .models import CourseOrg, CityDict, Teacher
-from .forms import UserAskForm
+from django.shortcuts import render
+from django.views.generic import View
+from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
+
 from courses.models import Course
 from operation.models import UserFavorite
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
+from .forms import UserAskForm
+from .models import CityDict, CourseOrg, Teacher
 
 
 # Create your views here.

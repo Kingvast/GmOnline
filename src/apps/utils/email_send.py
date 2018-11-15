@@ -1,9 +1,10 @@
 # _*_ encoding:utf-8 _*_
 from random import Random
+
 from django.core.mail import send_mail
 
-from users.models import EmailVerifyRecord
 from GmOnline.settings import EMAIL_FROM
+from users.models import EmailVerifyRecord
 
 
 def random_str(randomlength=8):

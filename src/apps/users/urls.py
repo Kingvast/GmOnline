@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
 
-from .views import UserInfoView, UploadImageView, UpdatePwdView, \
-    SendEmailCodeView, UpdateEmailView, MyCourseView, MyFavOrgView, \
-    MyFavTeacherView, MyFavCourseView, MymessageView
+from .views import (MyCourseView, MyFavCourseView, MyFavOrgView,
+                    MyFavTeacherView, MymessageView, SendEmailCodeView,
+                    UpdateEmailView, UpdatePwdView, UploadImageView,
+                    UserInfoView)
 
 urlpatterns = [
     # 用户信息

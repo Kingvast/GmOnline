@@ -1,7 +1,8 @@
 # _*_ encoding:utf-8 _*_
 
-from django import forms
 from captcha.fields import CaptchaField
+from django import forms
+
 from .models import UserProfile
 
 

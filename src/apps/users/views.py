@@ -1,24 +1,25 @@
 # _*_ encoding:utf-8 _*_
 import json
-from django.shortcuts import render, render_to_response
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
-from django.db.models import Q
-from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response
 from django.urls import reverse
+from django.views.generic.base import View
+from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
 
-from .models import UserProfile, Banner, EmailVerifyRecord
-from .forms import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm, \
-    UploadImageForm, UserInfoForm
 from courses.models import Course
-from organization.models import CourseOrg, Teacher
 from operation.models import UserCourse, UserFavorite, UserMessage
-from operation.models import UserMessage
+from organization.models import CourseOrg, Teacher
 from utils.email_send import send_register_email
 from utils.mixin_utils import LoginRequiredMixin
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
+from .forms import (ForgetForm, LoginForm, ModifyPwdForm, RegisterForm,
+                    UploadImageForm, UserInfoForm)
+from .models import Banner, EmailVerifyRecord, UserProfile
 
 
 # Create your views here.

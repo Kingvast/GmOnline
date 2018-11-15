@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import xadmin
 
-from .models import UserAsk, UserCourse, UserMessage, CourseComments, \
-    UserFavorite
+from .models import (CourseComments, UserAsk, UserCourse, UserFavorite,
+                     UserMessage)
 
 
 class UserAskAdmin(object):

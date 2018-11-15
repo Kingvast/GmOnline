@@ -15,13 +15,14 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import url, include
+from django.conf.urls import include, url
+from django.views.generic.base import RedirectView
+from django.views.static import serve
 
 import xadmin
-from django.views.static import serve
-from django.views.generic.base import RedirectView
-from users.views import IndexView, RegisterView, LoginView, ActiveUserView, \
-    ForgetPwdView, ResetView, ModifyPwdView, LogoutView
+from users.views import (ActiveUserView, ForgetPwdView, IndexView, LoginView,
+                         LogoutView, ModifyPwdView, RegisterView, ResetView)
+
 from .settings import MEDIA_ROOT
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
@@ -32,10 +33,12 @@ urlpatterns = [
     url('^login/$', LoginView.as_view(), name='login'),
     url('^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(),
+    url(r'^active/(?P<active_code>.*)/$',
+        ActiveUserView.as_view(),
         name="user_active"),
     url(r'^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
-    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
+    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(),
+        name="reset_pwd"),
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
 
     # 课程机构页面相关url配置
@@ -54,7 +57,6 @@ urlpatterns = [
     # 富文本相关url
     url(r'^ueditor/',
         include(('DjangoUeditor.urls', 'ueditor'), namespace='ueditor')),
-
     url(r'^favicon\.ico$', favicon_view),
 ]
 

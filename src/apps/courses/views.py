@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.views.generic import View
 from django.db.models import Q
 from django.http import HttpResponse
-from .models import Course, CourseResource, Video
-from operation.models import UserFavorite, CourseComments, UserCourse
+from django.shortcuts import render
+from django.views.generic import View
+from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
+
+from operation.models import CourseComments, UserCourse, UserFavorite
 from utils.mixin_utils import LoginRequiredMixin
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
+from .models import Course, CourseResource, Video
 
 
 # Create your views here.

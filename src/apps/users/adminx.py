@@ -1,10 +1,12 @@
 # _*_ encoding:utf-8 _*_
+from django.utils.translation import ugettext as _
+
 import xadmin
 from xadmin import views
+from xadmin.layout import Fieldset, Main, Row, Side
 from xadmin.plugins.auth import UserAdmin
-from xadmin.layout import Fieldset, Main, Side, Row
-from django.utils.translation import ugettext as _
-from .models import EmailVerifyRecord, Banner
+
+from .models import Banner, EmailVerifyRecord
 
 
 class UserProfileAdmin(UserAdmin):

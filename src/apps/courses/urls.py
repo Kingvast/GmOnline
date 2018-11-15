@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from .views import CourseListView, CourseDetailView, CourseInfoView, \
-    CommentsView, AddCommentsView, VideoPlayView
+
+from .views import (AddCommentsView, CommentsView, CourseDetailView,
+                    CourseInfoView, CourseListView, VideoPlayView)
 
 urlpatterns = [
     # 课程列表页

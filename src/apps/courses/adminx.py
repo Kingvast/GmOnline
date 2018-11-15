@@ -1,7 +1,7 @@
 # _*_ encoding:utf-8 _*_
 import xadmin
 
-from .models import Course, Lesson, Video, CourseResource, BannerCourse
+from .models import BannerCourse, Course, CourseResource, Lesson, Video
 
 
 # 课程直接添加章节
