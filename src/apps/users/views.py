@@ -74,9 +74,12 @@ class IndexView(View):
 
 class RegisterView(View):
     def get(self, request):
+        all_banners = Banner.objects.all().order_by('index')
         register_form = RegisterForm()
-        return render(request, 'register.html',
-                      {'register_form': register_form})
+        return render(request, 'register.html', {
+            'register_form': register_form,
+            'all_banners': all_banners,
+        })
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
@@ -110,7 +113,10 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'login.html', {})
+        all_banners = Banner.objects.all().order_by('index')
+        return render(request, 'login.html', {
+            'all_banners': all_banners,
+        })
 
     def post(self, request):
         login_form = LoginForm(request.POST)
@@ -142,8 +148,12 @@ class LogoutView(View):
 
 class ForgetPwdView(View):
     def get(self, request):
+        all_banners = Banner.objects.all().order_by('index')
         forget_form = ForgetForm()
-        return render(request, 'forgetpwd.html', {'forget_form': forget_form})
+        return render(request, 'forgetpwd.html', {
+            'forget_form': forget_form,
+            'all_banners': all_banners,
+        })
 
     def post(self, request):
         forget_form = ForgetForm(request.POST)

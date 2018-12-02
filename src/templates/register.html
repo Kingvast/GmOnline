@@ -86,13 +86,14 @@
             <div class="fl slide">
                 <div class="imgslide">
                     <ul class="imgs">
-
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
-
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
-
-                        <li><a href=""><img width="483" height="472" src="{% static 'images/57a801860001c34b12000460.jpg' %}" /></a></li>
-
+                    {% for banner in all_banners %}
+                    <li>
+                        <a href="{{ banner.url }}">
+                            <img width="483" height="472"
+                                 src="{{ MEDIA_URL }}{{ banner.image }}"/>
+                        </a>
+                    </li>
+                    {% endfor %}
                     </ul>
                 </div>
                 <div class="unslider-arrow prev"></div>
