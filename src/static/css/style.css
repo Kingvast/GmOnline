@@ -416,7 +416,7 @@ caption {
 .header .top {
     height: 38px;
     line-height: 38px;
-    background: #3a3a3a;
+    background: #23364C;
     color: #fff;
     width: 100%;
 }
@@ -542,7 +542,7 @@ caption {
     height: 30px;
     line-height: 30px;
     margin-top: 4px;
-    background: #616161;
+    background: #294E6A;
     margin-left: 2px;
     text-align: center;
     float: left;
@@ -554,7 +554,7 @@ caption {
     height: 30px;
     line-height: 30px;
     margin-top: 4px;
-    background: #616161;
+    background: #294E6A;
     margin-left: 2px;
     text-align: center;
     float: left;
@@ -1376,7 +1376,7 @@ textarea:focus {
 /*#search_type{height: 37px;line-height: 37px;width: 90px !important;}*/
 /*header nav*/
 .header .nav {
-    background: #717171;
+    background: #366A8B;
     height: 38px;
     font-size: 14px;
     width: 100%;
@@ -2444,7 +2444,7 @@ textarea:focus {
 }
 
 footer .footer {
-    background: #3a3a3a;
+    background: #23364C;
     height: 300px;
     padding: 15px;
     color: #717171;
