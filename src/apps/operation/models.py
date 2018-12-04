@@ -3,9 +3,8 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 
-from django.db import models
-
 from courses.models import Course
+from django.db import models
 from users.models import UserProfile
 
 

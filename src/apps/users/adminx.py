@@ -1,7 +1,6 @@
 # _*_ encoding:utf-8 _*_
-from django.utils.translation import ugettext as _
-
 import xadmin
+from django.utils.translation import ugettext as _
 from xadmin import views
 from xadmin.layout import Fieldset, Main, Row, Side
 from xadmin.plugins.auth import UserAdmin

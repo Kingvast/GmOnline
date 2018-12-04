@@ -3,9 +3,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
-from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
-
 from operation.models import CourseComments, UserCourse, UserFavorite
+from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
 from utils.mixin_utils import LoginRequiredMixin
 
 from .models import Course, CourseResource, Video
@@ -129,8 +128,9 @@ class CourseInfoView(LoginRequiredMixin, View):
             user_course.course.id for user_course in all_user_courses
         ]
         # 获取学过该用户学过其他的所有课程
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by(
-            '-click_nums').exclude(id=course.id)[:5]
+        relate_courses = Course.objects.filter(
+            id__in=course_ids).order_by('-click_nums').exclude(
+                id=course.id)[:5]
         all_resources = CourseResource.objects.filter(course=course)
         return render(
             request, 'course-video.html', {
@@ -157,8 +157,9 @@ class CommentsView(LoginRequiredMixin, View):
             user_course.course_id for user_course in all_user_courses
         ]
         # 获取学过该课程用户学过的其他课程
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by(
-            '-click_nums').exclude(id=course.id)[:5]
+        relate_courses = Course.objects.filter(
+            id__in=course_ids).order_by('-click_nums').exclude(
+                id=course.id)[:5]
 
         return render(
             request, 'course-comment.html', {
@@ -228,8 +229,9 @@ class VideoPlayView(LoginRequiredMixin, View):
             user_course.course_id for user_course in all_user_courses
         ]
         # 获取学过该课程用户学过的其他课程
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by(
-            '-click_nums').exclude(id=course.id)[:4]
+        relate_courses = Course.objects.filter(
+            id__in=course_ids).order_by('-click_nums').exclude(
+                id=course.id)[:4]
         # 是否收藏课程
         return render(
             request, 'course-play.html', {
