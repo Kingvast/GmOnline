@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
+from operation.models import UserFavorite
 from pure_pagination import EmptyPage, PageNotAnInteger, Paginator
 
 from .forms import UserAskForm
