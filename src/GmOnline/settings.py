@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = '9*^y51dxp37=@x8(dw=y^j8vg2rh7)edru_ec*u%0io=99k820'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,7 +125,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+# 开发静态文件配置
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
 EMAIL_HOST = 'smtp.sina.com'
 EMAIL_PORT = 25
@@ -137,4 +138,5 @@ EMAIL_FROM = 'wanghaoandyali@sina.com'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# 部署静态文件配置
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
