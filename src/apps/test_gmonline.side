@@ -1,0 +1,1626 @@
+{
+  "id": "92a3b42b-48a5-4500-a4c4-abc8147d5fc3",
+  "version": "2.0",
+  "name": "test_gmonline",
+  "url": "http://119.28.43.84/",
+  "tests": [{
+    "id": "bc27b769-007f-4776-9d6b-913b39999d31",
+    "name": "test_basic",
+    "commands": [{
+      "id": "2960e7cf-1246-4160-981f-7049362f80e4",
+      "comment": "",
+      "command": "open",
+      "target": "http://119.28.43.84/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b6b3279-d953-44ac-96f6-adc735576b90",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "acfa523b-deb6-4171-b41a-3f2f8eddaff2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=注册",
+      "targets": [
+        ["linkText=注册", "linkText"],
+        ["css=.registerbtn", "css:finder"],
+        ["xpath=//a[contains(text(),'注册')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/register/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'注册')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e79c10c-5bb7-46d4-93fe-d4a53dbabbd0",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//form[@id='email_register_form']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "28681d16-f2b9-4914-b01e-c55e4fd7923c",
+      "comment": "",
+      "command": "click",
+      "target": "id=email_register_form",
+      "targets": [
+        ["id=email_register_form", "id"],
+        ["css=#email_register_form", "css:finder"],
+        ["xpath=//form[@id='email_register_form']", "xpath:attributes"],
+        ["xpath=//div[3]/div[2]/form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "683f905f-5aad-4cbf-b945-a6e40257b167",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_password",
+      "targets": [
+        ["id=id_password", "id"],
+        ["name=password", "name"],
+        ["css=#id_password", "css:finder"],
+        ["xpath=//input[@id='id_password']", "xpath:attributes"],
+        ["xpath=//form[@id='email_register_form']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/form/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0de27f66-0557-473d-94df-466167c4b0ee",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_captcha_1",
+      "targets": [
+        ["id=id_captcha_1", "id"],
+        ["name=captcha_1", "name"],
+        ["css=#id_captcha_1", "css:finder"],
+        ["xpath=//input[@id='id_captcha_1']", "xpath:attributes"],
+        ["xpath=//form[@id='email_register_form']/div[3]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97c7a0fd-aab3-4ace-8322-6b38fda69dbd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=[立即登录]",
+      "targets": [
+        ["linkText=[立即登录]", "linkText"],
+        ["css=.form-p > a", "css:finder"],
+        ["xpath=//a[contains(text(),'[立即登录]')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/login/')])[2]", "xpath:href"],
+        ["xpath=//div[3]/p/a", "xpath:position"],
+        ["xpath=//a[contains(.,'[立即登录]')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "22bac10f-60db-4ad5-adf8-daf12bb7e076",
+      "comment": "",
+      "command": "click",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2dd333bd-b056-4a38-9ea7-5ea79f521858",
+      "comment": "",
+      "command": "type",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "kingvast.wh@gmail.com"
+    }, {
+      "id": "fb9d7f7e-3b4a-4ea3-994f-dba810929f7e",
+      "comment": "",
+      "command": "type",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Wh1997Ai"
+    }, {
+      "id": "2717a218-e686-4e89-b2f8-aa971ee86e40",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsLoginBtn",
+      "targets": [
+        ["id=jsLoginBtn", "id"],
+        ["css=#jsLoginBtn", "css:finder"],
+        ["xpath=//input[@id='jsLoginBtn']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b427a0fe-0ff6-4a90-847c-f1ded64e4cef",
+      "comment": "",
+      "command": "click",
+      "target": "css=.user",
+      "targets": [
+        ["css=.user", "css:finder"],
+        ["xpath=//dl", "xpath:position"],
+        ["xpath=//dl[contains(.,'Charon')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf5f5d11-9ba5-4512-8a61-d887fcbf6f00",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=进入个人中心",
+      "targets": [
+        ["linkText=进入个人中心", "linkText"],
+        ["css=.personcenter", "css:finder"],
+        ["xpath=//a[contains(text(),'进入个人中心')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/info/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'进入个人中心')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bb74ffc-6309-4442-893b-2667461d8864",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsUserResetPwd",
+      "targets": [
+        ["id=jsUserResetPwd", "id"],
+        ["linkText=修改密码", "linkText"],
+        ["css=#jsUserResetPwd", "css:finder"],
+        ["xpath=//a[contains(text(),'修改密码')]", "xpath:link"],
+        ["xpath=//a[@id='jsUserResetPwd']", "xpath:attributes"],
+        ["xpath=//div[2]/div/div[2]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'修改密码')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0149d81e-f548-4740-b3d9-3d0dc800df1c",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=password1", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='jsResetPwdForm']/div/input", "xpath:idRelative"],
+        ["xpath=//form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4ee74907-d800-40d7-bdbe-918eb1577f18",
+      "comment": "",
+      "command": "click",
+      "target": "id=repwd",
+      "targets": [
+        ["id=repwd", "id"],
+        ["name=password2", "name"],
+        ["css=#repwd", "css:finder"],
+        ["xpath=//input[@id='repwd']", "xpath:attributes"],
+        ["xpath=//form[@id='jsResetPwdForm']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3bd55c59-bcb6-4912-b764-21ebc23eb813",
+      "comment": "",
+      "command": "click",
+      "target": "css=#jsResetDialog img",
+      "targets": [
+        ["css=#jsResetDialog img", "css:finder"],
+        ["xpath=//div[@id='jsResetDialog']/div/img", "xpath:idRelative"],
+        ["xpath=//div[3]/div/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75d75f05-4820-4c08-ab14-0cee70968557",
+      "comment": "",
+      "command": "click",
+      "target": "css=dd:nth-child(1)",
+      "targets": [
+        ["css=dd:nth-child(1)", "css:finder"],
+        ["xpath=//dd", "xpath:position"],
+        ["xpath=//dd[contains(.,'Charon')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5486f442-f101-4ffa-94af-21b223e619a5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=退出",
+      "targets": [
+        ["linkText=退出", "linkText"],
+        ["css=.btn > .fr", "css:finder"],
+        ["xpath=//a[contains(text(),'退出')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/logout/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'退出')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "15118a4b-a55a-42be-9c1b-35cf7fa180f2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=登录",
+      "targets": [
+        ["linkText=登录", "linkText"],
+        ["css=.loginbtn", "css:finder"],
+        ["xpath=//a[contains(text(),'登录')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'登录')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f00f900b-0879-40a2-812d-8a05fb93aff0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=忘记密码？",
+      "targets": [
+        ["linkText=忘记密码？", "linkText"],
+        ["css=.fr:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'忘记密码？')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/forget/')]", "xpath:href"],
+        ["xpath=//div[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'忘记密码？')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e786fe87-86f1-421e-b39c-5390ad0a3e00",
+      "comment": "",
+      "command": "click",
+      "target": "id=account",
+      "targets": [
+        ["id=account", "id"],
+        ["name=email", "name"],
+        ["css=#account", "css:finder"],
+        ["xpath=//input[@id='account']", "xpath:attributes"],
+        ["xpath=//form[@id='jsFindPwdForm']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e39f5cc5-f619-4f8a-b70a-b5c346447934",
+      "comment": "",
+      "command": "type",
+      "target": "id=account",
+      "targets": [
+        ["id=account", "id"],
+        ["name=email", "name"],
+        ["css=#account", "css:finder"],
+        ["xpath=//input[@id='account']", "xpath:attributes"],
+        ["xpath=//form[@id='jsFindPwdForm']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "015fe74b-3811-4622-ba15-2d6e61b87eb4",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_captcha_1",
+      "targets": [
+        ["id=id_captcha_1", "id"],
+        ["name=captcha_1", "name"],
+        ["css=#id_captcha_1", "css:finder"],
+        ["xpath=//input[@id='id_captcha_1']", "xpath:attributes"],
+        ["xpath=//form[@id='jsFindPwdForm']/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b95c00f8-2640-4bc6-a258-c1c092b3d6fc",
+      "comment": "",
+      "command": "click",
+      "target": "id=account",
+      "targets": [
+        ["id=account", "id"],
+        ["name=email", "name"],
+        ["css=#account", "css:finder"],
+        ["xpath=//input[@id='account']", "xpath:attributes"],
+        ["xpath=//form[@id='jsFindPwdForm']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d3391995-f089-4136-82a6-30c514adee6e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-box",
+      "targets": [
+        ["css=.form-box", "css:finder"],
+        ["xpath=//section/div/div/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "b9845809-641b-49db-9636-1558bd9376ea",
+    "name": "test_organization",
+    "commands": [{
+      "id": "256b5e0e-585c-469c-802b-759d5068cd29",
+      "comment": "",
+      "command": "open",
+      "target": "http://119.28.43.84/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44e1cc97-4938-4d75-8b57-7cb9643f4ebc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1057",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5bd62f9e-7ce2-4aa1-aab1-478cd19d2cc6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=登录",
+      "targets": [
+        ["linkText=登录", "linkText"],
+        ["css=.loginbtn", "css:finder"],
+        ["xpath=//a[contains(text(),'登录')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'登录')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "56369d65-20e2-4724-8b2b-bb9c431d7a98",
+      "comment": "",
+      "command": "click",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "736ed6a3-c1bc-4c58-b379-21d86a03f33d",
+      "comment": "",
+      "command": "type",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "kingvast.wh@gmail.com"
+    }, {
+      "id": "391acbf3-0184-46f8-bd52-e60382c37b6d",
+      "comment": "",
+      "command": "type",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Wh1997Ai"
+    }, {
+      "id": "0e74ac3c-6e06-436d-9a66-db9a06922fe1",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsLoginBtn",
+      "targets": [
+        ["id=jsLoginBtn", "id"],
+        ["css=#jsLoginBtn", "css:finder"],
+        ["xpath=//input[@id='jsLoginBtn']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d5ee008-1345-4b58-82b3-779a24f64312",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=授课机构",
+      "targets": [
+        ["linkText=授课机构", "linkText"],
+        ["css=.wp > ul > li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'授课机构')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/org/list/')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'授课机构')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a6f58aa-6aae-48bd-9e1a-9f126b83adee",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(2) > a:nth-child(2) > span",
+      "targets": [
+        ["css=.cont:nth-child(2) > a:nth-child(2) > span", "css:finder"],
+        ["xpath=//a[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'培训机构')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "15efb420-904e-4d26-a248-d962a2dd788f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(2) > a:nth-child(3) > span",
+      "targets": [
+        ["css=.cont:nth-child(2) > a:nth-child(3) > span", "css:finder"],
+        ["xpath=//a[3]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'高校')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "28af81bc-43d2-402d-a972-070a0c34b083",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(2) > a:nth-child(4) > span",
+      "targets": [
+        ["css=.cont:nth-child(2) > a:nth-child(4) > span", "css:finder"],
+        ["xpath=//a[4]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'个人')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "31f2405f-454d-42c6-9db4-b1e4b6bbbe34",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(2) > a:nth-child(1) > span",
+      "targets": [
+        ["css=.cont:nth-child(2) > a:nth-child(1) > span", "css:finder"],
+        ["xpath=//a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'全部')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "87d99d97-4176-43e7-9917-6e663c83d5e8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(3) > a:nth-child(2) > span",
+      "targets": [
+        ["css=.cont:nth-child(3) > a:nth-child(2) > span", "css:finder"],
+        ["xpath=//div[2]/a[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'北京')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd88cf0c-c9a1-45bb-a697-7a03b9fd5460",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(3) > a:nth-child(3) > span",
+      "targets": [
+        ["css=.cont:nth-child(3) > a:nth-child(3) > span", "css:finder"],
+        ["xpath=//div[2]/a[3]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'成都')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "24484e49-f495-4180-8914-fb83e8f70470",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(3) > a:nth-child(4) > span",
+      "targets": [
+        ["css=.cont:nth-child(3) > a:nth-child(4) > span", "css:finder"],
+        ["xpath=//div[2]/a[4]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'天水')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cf48d41f-5247-4592-8abf-a9f642eb06c7",
+      "comment": "",
+      "command": "click",
+      "target": "css=a:nth-child(5) > span",
+      "targets": [
+        ["css=a:nth-child(5) > span", "css:finder"],
+        ["xpath=//a[5]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'兰州')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a9d8c6b-56a0-4315-9e08-db09010ba19e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cont:nth-child(3) > a:nth-child(3) > span",
+      "targets": [
+        ["css=.cont:nth-child(3) > a:nth-child(3) > span", "css:finder"],
+        ["xpath=//div[2]/a[3]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'成都')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f520ad4-85f5-436f-8f7a-b377ee2a722f",
+      "comment": "",
+      "command": "click",
+      "target": "id=companyName",
+      "targets": [
+        ["id=companyName", "id"],
+        ["name=name", "name"],
+        ["css=#companyName", "css:finder"],
+        ["xpath=//input[@id='companyName']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div/input", "xpath:idRelative"],
+        ["xpath=//form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d0614d1-c646-41d2-82be-e9e416dd362f",
+      "comment": "",
+      "command": "type",
+      "target": "id=companyName",
+      "targets": [
+        ["id=companyName", "id"],
+        ["name=name", "name"],
+        ["css=#companyName", "css:finder"],
+        ["xpath=//input[@id='companyName']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div/input", "xpath:idRelative"],
+        ["xpath=//form/div/input", "xpath:position"]
+      ],
+      "value": "王浩"
+    }, {
+      "id": "fb2f71d0-8add-48db-b519-bec097426c01",
+      "comment": "",
+      "command": "click",
+      "target": "id=companyMobile",
+      "targets": [
+        ["id=companyMobile", "id"],
+        ["name=mobile", "name"],
+        ["css=#companyMobile", "css:finder"],
+        ["xpath=//input[@id='companyMobile']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c48b85e-a967-420a-a2f3-08066c94eb3f",
+      "comment": "",
+      "command": "type",
+      "target": "id=companyMobile",
+      "targets": [
+        ["id=companyMobile", "id"],
+        ["name=mobile", "name"],
+        ["css=#companyMobile", "css:finder"],
+        ["xpath=//input[@id='companyMobile']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "17602852734"
+    }, {
+      "id": "c7c3e778-a54f-4faa-b543-e2e3026faa00",
+      "comment": "",
+      "command": "click",
+      "target": "id=companyAddress",
+      "targets": [
+        ["id=companyAddress", "id"],
+        ["name=course_name", "name"],
+        ["css=#companyAddress", "css:finder"],
+        ["xpath=//input[@id='companyAddress']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5526e76f-f7f2-44ad-aba9-e887001f128c",
+      "comment": "",
+      "command": "type",
+      "target": "id=companyAddress",
+      "targets": [
+        ["id=companyAddress", "id"],
+        ["name=course_name", "name"],
+        ["css=#companyAddress", "css:finder"],
+        ["xpath=//input[@id='companyAddress']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "Python"
+    }, {
+      "id": "6c53ece5-6e03-460a-a9a3-8eed77766d57",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsStayBtn",
+      "targets": [
+        ["id=jsStayBtn", "id"],
+        ["css=#jsStayBtn", "css:finder"],
+        ["xpath=//input[@id='jsStayBtn']", "xpath:attributes"],
+        ["xpath=//form[@id='jsStayForm']/input", "xpath:idRelative"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "09414afb-efef-4b8f-be91-80d7809dc783",
+      "comment": "",
+      "command": "assertAlert",
+      "target": "提交成功",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c0344439-20c3-4e7d-868e-d151c36a128b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.des:nth-child(2) .clearfix h1",
+      "targets": [
+        ["css=.des:nth-child(2) .clearfix h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'成都东软学院')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c052600-f5d7-4313-9b6d-2b8922ea8eeb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=机构课程",
+      "targets": [
+        ["linkText=机构课程", "linkText"],
+        ["css=.left li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'机构课程')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/org/course/1/')]", "xpath:href"],
+        ["xpath=//div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'机构课程')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e0f1dad-6490-4ee7-8453-8d6610c17650",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=机构介绍",
+      "targets": [
+        ["linkText=机构介绍", "linkText"],
+        ["css=li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'机构介绍')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/org/desc/1/')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'机构介绍')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "42c00fa3-af6f-433f-8875-aad0762fcef0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=机构讲师",
+      "targets": [
+        ["linkText=机构讲师", "linkText"],
+        ["css=li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'机构讲师')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/org/org_teacher/1/')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'机构讲师')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c58f3186-9c84-4f87-9f1a-fd7fb61cff72",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=王浩已认证",
+      "targets": [
+        ["linkText=王浩已认证", "linkText"],
+        ["css=.des:nth-child(1) > dd a", "css:finder"],
+        ["xpath=//a[contains(@href, '/org/teacher/detail/1/')]", "xpath:href"],
+        ["xpath=//h1/a", "xpath:position"],
+        ["xpath=//a[contains(.,'王浩已认证')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e5c7d06-f04f-4eb6-8169-3da40741c07d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=授课讲师",
+      "targets": [
+        ["linkText=授课讲师", "linkText"],
+        ["css=.crumbs > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'授课讲师')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/org/teacher/list/')])[2]", "xpath:href"],
+        ["xpath=//section[2]/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'授课讲师')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a3062df-cefc-46a0-83da-dfd64739e4a2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.left",
+      "targets": [
+        ["css=.left", "css:finder"],
+        ["xpath=//section[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e307abc-242b-46c0-a2fc-ba719a871449",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=下一页",
+      "targets": [
+        ["linkText=下一页", "linkText"],
+        ["css=.long > a", "css:finder"],
+        ["xpath=//a[contains(text(),'下一页')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '?page=2')])[2]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'下一页')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bfd388a5-cd63-4950-9a41-6522282a31b1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=人气 ↓",
+      "targets": [
+        ["linkText=人气 ↓", "linkText"],
+        ["css=.fl > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'人气 ↓')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '?sort=hot')]", "xpath:href"],
+        ["xpath=//div/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'人气 ↓')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f929f0f9-7109-444e-8ac5-17abc5aae6b4",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=授课机构",
+      "targets": [
+        ["linkText=授课机构", "linkText"],
+        ["css=li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'授课机构')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/org/list/')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'授课机构')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "596b5dc7-7487-44a4-b245-18da69d42084",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=学习人数 ↓",
+      "targets": [
+        ["linkText=学习人数 ↓", "linkText"],
+        ["css=.tab_header > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'学习人数 ↓')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '?sort=students&ct=&city=')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'学习人数 ↓')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54abe2bd-625d-463a-9501-3ceeacf8b6b1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=课程数 ↓",
+      "targets": [
+        ["linkText=课程数 ↓", "linkText"],
+        ["css=.tab_header > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'课程数 ↓')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '?sort=courses&ct=&city=')]", "xpath:href"],
+        ["xpath=//div[3]/div/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'课程数 ↓')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "af242ca2-2cdd-4f16-af87-8f227c83984e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=下一页",
+      "targets": [
+        ["linkText=下一页", "linkText"],
+        ["css=.long > a", "css:finder"],
+        ["xpath=//a[contains(text(),'下一页')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '?sort=courses&ct=&city=&page=2')])[2]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'下一页')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "91f6ac4b-3b7b-486d-b2e1-6358c9947c58",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=下一页",
+      "targets": [
+        ["linkText=下一页", "linkText"],
+        ["css=.long:nth-child(5) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'下一页')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '?sort=courses&ct=&city=&page=3')])[2]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'下一页')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "42783abc-5fdb-468a-83f0-6c1c6b87a46e",
+      "comment": "",
+      "command": "click",
+      "target": "css=dd:nth-child(1)",
+      "targets": [
+        ["css=dd:nth-child(1)", "css:finder"],
+        ["xpath=//dd", "xpath:position"],
+        ["xpath=//dd[contains(.,'Charon')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd183ab7-a8bd-4027-9927-3d5e7fff32c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.userdetail > dl",
+      "targets": [
+        ["css=.userdetail > dl", "css:finder"],
+        ["xpath=//div[2]/div/dl", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "80e0ef1d-335e-45af-8af9-844f6e42ba91",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=退出",
+      "targets": [
+        ["linkText=退出", "linkText"],
+        ["css=.btn > .fr", "css:finder"],
+        ["xpath=//a[contains(text(),'退出')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/logout/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'退出')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "ecab4da2-0e14-4811-bee0-93e094e5369e",
+    "name": "test_courses",
+    "commands": [{
+      "id": "dc992b54-e48c-4fca-9f1a-0783f3f61d15",
+      "comment": "",
+      "command": "open",
+      "target": "http://119.28.43.84/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "374ebab6-b860-4e97-af66-80bd335ca500",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fdc114d7-93c3-49eb-8c58-59fa96d7edb0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=登录",
+      "targets": [
+        ["linkText=登录", "linkText"],
+        ["css=.loginbtn", "css:finder"],
+        ["xpath=//a[contains(text(),'登录')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'登录')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "63f87aaf-2f24-4aa7-8381-304947d2a225",
+      "comment": "",
+      "command": "click",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "71d876d1-ebaf-4e39-a406-416666aeabb8",
+      "comment": "",
+      "command": "type",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "kingvast.wh@gmail.com"
+    }, {
+      "id": "1901de74-f015-40cd-970e-9449fdf4a59b",
+      "comment": "",
+      "command": "type",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "W好997Ai"
+    }, {
+      "id": "61f7f6c1-b314-4ad1-9144-5d91e2467e03",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "9697b0ad-adad-4372-b4ca-3b203b4c5108",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=公开课",
+      "targets": [
+        ["linkText=公开课", "linkText"],
+        ["css=.wp > ul > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'公开课')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/course/list/')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'公开课')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c872537-c5e7-4257-96ad-312676635f6e",
+      "comment": "",
+      "command": "click",
+      "target": "css=dl:nth-child(1) .scrollLoading",
+      "targets": [
+        ["css=dl:nth-child(1) .scrollLoading", "css:finder"],
+        ["xpath=//dt/a/img", "xpath:position"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win7499",
+      "windowTimeout": 2000
+    }, {
+      "id": "e1f40114-ef9c-4959-813c-ed479d37dd4b",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win7499}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "56e466d2-0529-482e-bd25-bd6808e9bc62",
+      "comment": "",
+      "command": "click",
+      "target": "css=.buy",
+      "targets": [
+        ["css=.buy", "css:finder"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "35036909-4509-44ef-b724-64308f1dae91",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tab_cont > p:nth-child(1)",
+      "targets": [
+        ["css=.tab_cont > p:nth-child(1)", "css:finder"],
+        ["xpath=//div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Python是一种计算机程序设计语言。你可能已经听说过很多种流行的编程语言，比如非常难学的C语言，非常流行的Java语言，适合初学者的Basic语言，适合网页编程的JavaScript语言等等。')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7eed049e-075c-454d-9555-baf9eebbbac0",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(7)",
+      "targets": [
+        ["css=p:nth-child(7)", "css:finder"],
+        ["xpath=//p[7]", "xpath:position"],
+        ["xpath=//p[contains(.,'那是不是越低级的程序越难学，越高级的程序越简单？表面上来说，是的，但是，在非常高的抽象计算中，高级的Python程序设计也是非常难学的，所以，高级程序语言不等于简单。')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b757b727-cfa7-42dc-9904-f430114fc089",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=开始学习",
+      "targets": [
+        ["linkText=开始学习", "linkText"],
+        ["css=.buy > a", "css:finder"],
+        ["xpath=//a[contains(text(),'开始学习')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/course/info/1/')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'开始学习')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b36071c-181b-4045-be9c-903b4aed6800",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=下载",
+      "targets": [
+        ["linkText=下载", "linkText"],
+        ["css=.downcode", "css:finder"],
+        ["xpath=//a[contains(text(),'下载')]", "xpath:link"],
+        ["xpath=//div[@id='main']/div[2]/div/div/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/media/course/resource/2019/02/project.zip')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'下载')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c9b5139d-76f6-4646-a9c2-7b0a95095051",
+      "comment": "",
+      "command": "click",
+      "target": "css=#commentOn > span",
+      "targets": [
+        ["css=#commentOn > span", "css:finder"],
+        ["xpath=//a[@id='commentOn']/span", "xpath:idRelative"],
+        ["xpath=//li[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'评论')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b16fcb6a-ba17-4d99-a6dc-2152e1c42857",
+      "comment": "",
+      "command": "click",
+      "target": "id=js-pl-textarea",
+      "targets": [
+        ["id=js-pl-textarea", "id"],
+        ["css=#js-pl-textarea", "css:finder"],
+        ["xpath=//textarea[@id='js-pl-textarea']", "xpath:attributes"],
+        ["xpath=//div[@id='js-pl-input-fake']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "488c787c-7cf3-4b1d-8aba-80a752a94213",
+      "comment": "",
+      "command": "type",
+      "target": "id=js-pl-textarea",
+      "targets": [
+        ["id=js-pl-textarea", "id"],
+        ["css=#js-pl-textarea", "css:finder"],
+        ["xpath=//textarea[@id='js-pl-textarea']", "xpath:attributes"],
+        ["xpath=//div[@id='js-pl-input-fake']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "跑测试"
+    }, {
+      "id": "63385111-6272-4d8d-b43a-3379845de3bf",
+      "comment": "",
+      "command": "click",
+      "target": "id=js-pl-submit",
+      "targets": [
+        ["id=js-pl-submit", "id"],
+        ["css=#js-pl-submit", "css:finder"],
+        ["xpath=//input[@id='js-pl-submit']", "xpath:attributes"],
+        ["xpath=//div[@id='js-pub-container']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8744b712-e211-4216-adc1-2ae800671ad9",
+      "comment": "",
+      "command": "click",
+      "target": "css=#learnOn > span",
+      "targets": [
+        ["css=#learnOn > span", "css:finder"],
+        ["xpath=//a[@id='learnOn']/span", "xpath:idRelative"],
+        ["xpath=//a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'章节')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c544380a-c473-4443-af25-352f8872e29b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#learnOn > span",
+      "targets": [
+        ["css=#learnOn > span", "css:finder"],
+        ["xpath=//a[@id='learnOn']/span", "xpath:idRelative"],
+        ["xpath=//a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'章节')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "267f1c4e-c87a-4801-96e2-9c610377b878",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=1-1 Python入门课程介绍 (4)",
+      "targets": [
+        ["linkText=1-1 Python入门课程介绍 (4)", "linkText"],
+        ["css=.chapter:nth-child(1) .J-media-item", "css:finder"],
+        ["xpath=//a[contains(text(),'1-1 Python入门课程介绍 (4)')]", "xpath:link"],
+        ["xpath=//div[@id='main']/div[2]/div/div/div/div[2]/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/course/video/1/')]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1-1 Python入门课程介绍 (4)')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win4718",
+      "windowTimeout": 2000
+    }, {
+      "id": "4f5bc17d-2a36-4be5-ab6d-e4c47403b73f",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win4718}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a24a922a-254d-4412-8b7b-d526f6e7e1dc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vjs-big-play-button",
+      "targets": [
+        ["css=.vjs-big-play-button", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//div[@id='example_video_1']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Play Video')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "e1818278-bfd7-48c2-9f7a-7b08b368d1c1",
+    "name": "test_users",
+    "commands": [{
+      "id": "57f91a06-072e-4263-b59b-458496bad4f4",
+      "comment": "",
+      "command": "open",
+      "target": "http://119.28.43.84/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "155249a8-0650-43c8-b733-eabab9f54376",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52af9cad-1275-4df2-9fe3-c3f7f323c261",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=登录",
+      "targets": [
+        ["linkText=登录", "linkText"],
+        ["css=.loginbtn", "css:finder"],
+        ["xpath=//a[contains(text(),'登录')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login/')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'登录')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b9519a0-05af-498d-988a-d51364ede779",
+      "comment": "",
+      "command": "click",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f460f3fb-5cc1-40b6-9685-db0654e49158",
+      "comment": "",
+      "command": "type",
+      "target": "id=account_l",
+      "targets": [
+        ["id=account_l", "id"],
+        ["name=username", "name"],
+        ["css=#account_l", "css:finder"],
+        ["xpath=//input[@id='account_l']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "kingvast.wh@gmail.com"
+    }, {
+      "id": "1cdbce43-f950-4a4e-a355-93969db86105",
+      "comment": "",
+      "command": "type",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Wh1997Ai"
+    }, {
+      "id": "cc6f7565-a947-4650-bf51-2416f5376a5e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password_l",
+      "targets": [
+        ["id=password_l", "id"],
+        ["name=password", "name"],
+        ["css=#password_l", "css:finder"],
+        ["xpath=//input[@id='password_l']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "8fb13cdd-d5ba-4637-a604-114cccd2f5d9",
+      "comment": "",
+      "command": "click",
+      "target": "css=dt:nth-child(2) > img",
+      "targets": [
+        ["css=dt:nth-child(2) > img", "css:finder"],
+        ["xpath=//dt/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9bdc3f6-14f5-41d0-90c4-8b67bf1690d8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.userdetail > dl",
+      "targets": [
+        ["css=.userdetail > dl", "css:finder"],
+        ["xpath=//div[2]/div/dl", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "91485132-5ca2-422e-85e7-faad1b7e0b4d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=进入个人中心",
+      "targets": [
+        ["linkText=进入个人中心", "linkText"],
+        ["css=.personcenter", "css:finder"],
+        ["xpath=//a[contains(text(),'进入个人中心')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/info/')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'进入个人中心')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "79ff1043-a90d-4fb2-b2f2-0c500dcbacd5",
+      "comment": "",
+      "command": "click",
+      "target": "id=avatarUp",
+      "targets": [
+        ["id=avatarUp", "id"],
+        ["name=image", "name"],
+        ["css=#avatarUp", "css:finder"],
+        ["xpath=//input[@id='avatarUp']", "xpath:attributes"],
+        ["xpath=//form[@id='jsAvatarForm']/label/span[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "59b837e4-5e08-441d-ac24-f7ed3521dfc3",
+      "comment": "",
+      "command": "click",
+      "target": "id=nick_name",
+      "targets": [
+        ["id=nick_name", "id"],
+        ["name=nick_name", "name"],
+        ["css=#nick_name", "css:finder"],
+        ["xpath=//input[@id='nick_name']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li/input", "xpath:idRelative"],
+        ["xpath=//li/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "79a50812-a426-4aea-84a6-314f67a4b279",
+      "comment": "",
+      "command": "click",
+      "target": "id=address",
+      "targets": [
+        ["id=address", "id"],
+        ["name=address", "name"],
+        ["css=#address", "css:finder"],
+        ["xpath=//input[@id='address']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[4]/input", "xpath:idRelative"],
+        ["xpath=//li[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa398823-e3ab-4f0d-bf1e-d681a527841f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.p_infor_city",
+      "targets": [
+        ["css=.p_infor_city", "css:finder"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//form/ul/li[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b390bc0b-8556-40d5-8823-353fd1fda636",
+      "comment": "",
+      "command": "click",
+      "target": "id=mobile",
+      "targets": [
+        ["id=mobile", "id"],
+        ["name=mobile", "name"],
+        ["css=#mobile", "css:finder"],
+        ["xpath=//input[@id='mobile']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[5]/input", "xpath:idRelative"],
+        ["xpath=//li[5]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "247f9ebe-d86b-495e-a409-cacdb3afe46d",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(5)",
+      "targets": [
+        ["css=li:nth-child(5)", "css:finder"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[5]", "xpath:idRelative"],
+        ["xpath=//li[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a499b8e9-61e8-4c31-94ba-d0d87cd11b08",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsEditUserBtn",
+      "targets": [
+        ["id=jsEditUserBtn", "id"],
+        ["css=#jsEditUserBtn", "css:finder"],
+        ["xpath=//input[@id='jsEditUserBtn']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[7]/input", "xpath:idRelative"],
+        ["xpath=//li[7]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "09e49a50-df78-4574-ae80-110665945b17",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsUserResetPwd",
+      "targets": [
+        ["id=jsUserResetPwd", "id"],
+        ["linkText=修改密码", "linkText"],
+        ["css=#jsUserResetPwd", "css:finder"],
+        ["xpath=//a[contains(text(),'修改密码')]", "xpath:link"],
+        ["xpath=//a[@id='jsUserResetPwd']", "xpath:attributes"],
+        ["xpath=//div[2]/div/div[2]/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'修改密码')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d09f0eb-d69a-4f43-a2cd-76b7fd89810e",
+      "comment": "",
+      "command": "click",
+      "target": "css=#jsResetDialog img",
+      "targets": [
+        ["css=#jsResetDialog img", "css:finder"],
+        ["xpath=//div[@id='jsResetDialog']/div/img", "xpath:idRelative"],
+        ["xpath=//div[3]/div/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f00e00c2-4d57-4e29-9fba-8b320da4aa57",
+      "comment": "",
+      "command": "click",
+      "target": "id=birth_day",
+      "targets": [
+        ["id=birth_day", "id"],
+        ["name=birday", "name"],
+        ["css=#birth_day", "css:finder"],
+        ["xpath=//input[@id='birth_day']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[2]/input", "xpath:idRelative"],
+        ["xpath=//li[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d403ff18-6fab-485c-ae8f-20dcc94d135c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.laydate_click:nth-child(4)",
+      "targets": [
+        ["css=.laydate_click:nth-child(4)", "css:finder"],
+        ["xpath=//table[@id='laydate_table']/tbody/tr[4]/td[4]", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[4]", "xpath:position"],
+        ["xpath=//td[contains(.,'21')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb913c40-1848-43ab-818a-b87363d6d91e",
+      "comment": "",
+      "command": "click",
+      "target": "id=jsEditUserBtn",
+      "targets": [
+        ["id=jsEditUserBtn", "id"],
+        ["css=#jsEditUserBtn", "css:finder"],
+        ["xpath=//input[@id='jsEditUserBtn']", "xpath:attributes"],
+        ["xpath=//form[@id='jsEditUserForm']/ul/li[7]/input", "xpath:idRelative"],
+        ["xpath=//li[7]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1a66a02c-01f1-4e06-88e1-98f621180f18",
+      "comment": "",
+      "command": "click",
+      "target": "css=#jsSuccessTips img",
+      "targets": [
+        ["css=#jsSuccessTips img", "css:finder"],
+        ["xpath=//div[@id='jsSuccessTips']/div/img", "xpath:idRelative"],
+        ["xpath=//div/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "660a860e-09ea-4b70-ad4e-314bc6196812",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=我的收藏",
+      "targets": [
+        ["linkText=我的收藏", "linkText"],
+        ["css=li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'我的收藏')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/myfav/org/')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'我的收藏')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "265b66c2-d822-41b4-ad71-123773a75db2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=授课教师",
+      "targets": [
+        ["linkText=授课教师", "linkText"],
+        ["css=.tab_header > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'授课教师')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/myfav/teacher/')]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'授课教师')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d700fa7c-94af-4df5-9dea-ae022fe3c470",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=公开课程",
+      "targets": [
+        ["linkText=公开课程", "linkText"],
+        ["css=.tab_header > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'公开课程')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/myfav/course/')]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'公开课程')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "536e04cc-b72b-4325-8710-a2abe4fd144b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=课程机构",
+      "targets": [
+        ["linkText=课程机构", "linkText"],
+        ["css=.tab_header > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'课程机构')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/users/myfav/org/')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'课程机构')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffc69a1d-895c-4a9a-bb84-be13a859c44e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=授课教师",
+      "targets": [
+        ["linkText=授课教师", "linkText"],
+        ["css=.tab_header > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'授课教师')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/myfav/teacher/')]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'授课教师')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6dc23785-c7c6-4937-bc38-26a064433d75",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=课程机构",
+      "targets": [
+        ["linkText=课程机构", "linkText"],
+        ["css=.tab_header > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'课程机构')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/users/myfav/org/')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'课程机构')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c467ec1-cc82-4281-9b76-77dadbc21a70",
+      "comment": "",
+      "command": "click",
+      "target": "css=.list",
+      "targets": [
+        ["css=.list", "css:finder"],
+        ["xpath=//section[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8798301b-1b06-4519-bae0-93efbc8d3f28",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=我的课程",
+      "targets": [
+        ["linkText=我的课程", "linkText"],
+        ["css=.left li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'我的课程')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/mycourse/')]", "xpath:href"],
+        ["xpath=//div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'我的课程')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0b2fe306-58df-4de7-9e44-5bcd76b01a41",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=我的收藏",
+      "targets": [
+        ["linkText=我的收藏", "linkText"],
+        ["css=li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'我的收藏')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/users/myfav/org/')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'我的收藏')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e041741f-4168-4462-99e3-6bd72278ebbb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=我的消息",
+      "targets": [
+        ["linkText=我的消息", "linkText"],
+        ["css=li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'我的消息')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/users/mymessage/')])[2]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'我的消息')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7579a7b2-050f-45ce-a1e4-9fcdf5f52cab",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fr > .top",
+      "targets": [
+        ["css=.fr > .top", "css:finder"],
+        ["xpath=//div[2]/div[2]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0edb79b9-ec3f-4bc1-8215-b9a91aaa61ba",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=个人消息",
+      "targets": [
+        ["linkText=个人消息", "linkText"],
+        ["css=.tab_header a", "css:finder"],
+        ["xpath=//a[contains(text(),'个人消息')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/user/message/')]", "xpath:href"],
+        ["xpath=//div[2]/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'个人消息')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d14e2c98-ac6d-4115-a747-72d01f4cfbee",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://119.28.43.84/", "http://119.28.43.84/logout", "http://119.28.43.84/forget"],
+  "plugins": []
+}
