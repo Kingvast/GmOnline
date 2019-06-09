@@ -77,13 +77,14 @@ class CourseDetailView(View):
 
         # 必须是用户已登录我们才需要判断
         if request.user.is_authenticated:
-            if UserFavorite.objects.filter(
-                    user=request.user, fav_id=course.id, fav_type=1):
+            if UserFavorite.objects.filter(user=request.user,
+                                           fav_id=course.id,
+                                           fav_type=1):
                 has_fav_course = True
 
-            if UserFavorite.objects.filter(
-                    user=request.user, fav_id=course.course_org.id,
-                    fav_type=2):
+            if UserFavorite.objects.filter(user=request.user,
+                                           fav_id=course.course_org.id,
+                                           fav_type=2):
                 has_fav_org = True
         # 增加课程点击数
         course.click_nums += 1
@@ -112,8 +113,8 @@ class CourseInfoView(LoginRequiredMixin, View):
     def get(self, request, course_id):
         course = Course.objects.get(id=int(course_id))
         # 查询用户是否已经关联了该课程
-        user_courses = UserCourse.objects.filter(
-            user=request.user, course=course)
+        user_courses = UserCourse.objects.filter(user=request.user,
+                                                 course=course)
         if not user_courses:
             user_course = UserCourse(user=request.user, course=course)
             course.students += 1
@@ -178,9 +179,8 @@ class AddCommentsView(View):
     def post(self, request):
         if not request.user.is_authenticated:
             # 判断用户登录状态
-            return HttpResponse(
-                '{"status":"fail", "msg":"用户未登录"}',
-                content_type='application/json')
+            return HttpResponse('{"status":"fail", "msg":"用户未登录"}',
+                                content_type='application/json')
 
         course_id = request.POST.get('course_id', 0)
         comments = request.POST.get('comments', '')
@@ -191,13 +191,11 @@ class AddCommentsView(View):
             course_comments.comments = comments
             course_comments.user = request.user
             course_comments.save()
-            return HttpResponse(
-                '{"status":"success", "msg":"评论成功"}',
-                content_type='application/json')
+            return HttpResponse('{"status":"success", "msg":"评论成功"}',
+                                content_type='application/json')
         else:
-            return HttpResponse(
-                '{"status":"fail", "msg":"评论失败"}',
-                content_type='application/json')
+            return HttpResponse('{"status":"fail", "msg":"评论失败"}',
+                                content_type='application/json')
 
 
 class VideoPlayView(LoginRequiredMixin, View):
@@ -211,8 +209,8 @@ class VideoPlayView(LoginRequiredMixin, View):
         # 找到对应的course
         course = video.lesson.course
         # 查询用户是否开始学习了该课，如果还未学习则，加入用户课程表
-        user_courses = UserCourse.objects.filter(
-            user=request.user, course=course)
+        user_courses = UserCourse.objects.filter(user=request.user,
+                                                 course=course)
         if not user_courses:
             user_course = UserCourse(user=request.user, course=course)
             user_course.save()

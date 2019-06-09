@@ -81,13 +81,15 @@ class RegisterView(View):
         })
 
     def post(self, request):
+        all_banners = Banner.objects.all().order_by('index')
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get('email', '')
             if UserProfile.objects.filter(email=user_name):
                 return render(request, 'register.html', {
                     'register_form': register_form,
-                    'msg': '用户已经存在'
+                    'msg': '用户已经存在',
+                    'all_banners': all_banners,
                 })
             pass_word = request.POST.get('password', '')
             user_profile = UserProfile()
@@ -107,7 +109,8 @@ class RegisterView(View):
             return render(request, 'login.html')
         else:
             return render(request, 'register.html',
-                          {'register_form': register_form})
+                          {'register_form': register_form,
+                           'all_banners': all_banners})
 
 
 class LoginView(View):
@@ -118,6 +121,7 @@ class LoginView(View):
         })
 
     def post(self, request):
+        all_banners = Banner.objects.all().order_by('index')
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
             user_name = request.POST.get('username', '')
@@ -128,11 +132,11 @@ class LoginView(View):
                     login(request, user)
                     return HttpResponseRedirect(reverse('index'))
                 else:
-                    return render(request, 'login.html', {'msg': '用户未激活！'})
+                    return render(request, 'login.html', {'msg': '用户未激活！', 'all_banners': all_banners})
             else:
-                return render(request, 'login.html', {'msg': '用户名或密码错误！'})
+                return render(request, 'login.html', {'msg': '用户名或密码错误！', 'all_banners': all_banners})
         else:
-            return render(request, 'login.html', {'login_form': login_form})
+            return render(request, 'login.html', {'login_form': login_form, 'all_banners': all_banners})
 
 
 class LogoutView(View):
@@ -155,6 +159,7 @@ class ForgetPwdView(View):
         })
 
     def post(self, request):
+        all_banners = Banner.objects.all().order_by('index')
         forget_form = ForgetForm(request.POST)
         if forget_form.is_valid():
             email = request.POST.get('email', '')
@@ -162,7 +167,8 @@ class ForgetPwdView(View):
             return render(request, 'send_success.html')
         else:
             return render(request, 'forgetpwd.html',
-                          {'forget_form': forget_form})
+                          {'forget_form': forget_form,
+                           'all_banners': all_banners, })
 
 
 class ResetView(View):
