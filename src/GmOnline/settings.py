@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes', 'django.contrib.sessions',
     'django.contrib.messages', 'django.contrib.staticfiles', 'users',
     'courses', 'organization', 'operation', 'xadmin', 'crispy_forms',
-    'captcha', 'pure_pagination', 'DjangoUeditor'
+    'captcha', 'pure_pagination', 'DjangoUeditor', 'django_extensions'
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 
