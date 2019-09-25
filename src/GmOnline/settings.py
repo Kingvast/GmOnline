@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gmonline',
         'USER': 'root',
-        'PASSWORD': 'wh@wh.com',
-        'HOST': '127.0.0.1'
+        'PASSWORD': 'xxxxxxxxx',
+        'HOST': 'xxx.xxx.xxx.xxx'
     }
 }
 
